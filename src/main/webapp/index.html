@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>首页</title>
+</head>
+<body>
+
+	<script type="text/javascript"
+		src="resources/js/plugin/jquery-2.1.0.min.js"></script>
+	<script type="text/javascript" src="resources/js/public-method.js"></script>
+	<script type="text/javascript" src="resources/js/public-variable.js"></script>
+	<script type="text/javascript" src="resources/js/home-entrance.js"></script>
+	<script type="text/javascript">
+		$(function(){
+				var url = '/wxserver/sysuser/test';
+				databaseOperationByAjax(url = url,method = 'GET',data= {});
+			});
+	</script>
+</body>
+</html>
