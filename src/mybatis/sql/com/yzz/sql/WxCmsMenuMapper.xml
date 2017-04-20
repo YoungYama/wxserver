@@ -1,0 +1,191 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.yzz.dao.WxCmsMenuDao">
+<resultMap id="BaseResultMap" type="com.yzz.entity.WxCmsMenu">
+<id column="wx_cms_menu_id" property="wxCmsMenuId" jdbcType="VARCHAR" />
+<result column="wx_cms_public_account_id" property="wxCmsPublicAccountId" jdbcType="VARCHAR" />
+<result column="media_id" property="mediaId" jdbcType="VARCHAR" />
+<result column="type" property="type" jdbcType="VARCHAR" />
+<result column="name" property="name" jdbcType="VARCHAR" />
+<result column="key" property="key" jdbcType="VARCHAR" />
+<result column="url" property="url" jdbcType="LONGVARCHAR" />
+<result column="sort" property="sort" jdbcType="INTEGER" />
+<result column="parent_id" property="parentId" jdbcType="VARCHAR" />
+<result column="ground_id" property="groundId" jdbcType="INTEGER" />
+</resultMap>
+<sql id="Base_Column_List">
+wx_cms_menu_id,wx_cms_public_account_id,media_id,type,name,key,url,sort,parent_id,ground_id
+</sql>
+<insert id="insert" parameterType="com.yzz.entity.WxCmsMenu">
+insert into wx_cms_menu 
+( wx_cms_menu_id,wx_cms_public_account_id,media_id,type,name,key,url,sort,parent_id,ground_id)
+values (#{wxCmsMenuId,jdbcType=VARCHAR},
+#{wxCmsPublicAccountId,jdbcType=VARCHAR},
+#{mediaId,jdbcType=VARCHAR},
+#{type,jdbcType=VARCHAR},
+#{name,jdbcType=VARCHAR},
+#{key,jdbcType=VARCHAR},
+#{url,jdbcType=LONGVARCHAR},
+#{sort,jdbcType=INTEGER},
+#{parentId,jdbcType=VARCHAR},
+#{groundId,jdbcType=INTEGER}) 
+</insert>
+
+<delete id="deleteBatch" parameterType="java.util.List">
+delete
+from wx_cms_menu 
+where wx_cms_menu_id in 
+<foreach collection="list" item="item" open="(" separator="," close=")"> 
+ #{item} 
+ </foreach>
+</delete>
+
+<delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+delete
+from wx_cms_menu 
+where wx_cms_menu_id = #{wxCmsMenuId,jdbcType=VARCHAR}
+</delete>
+
+<update id="updateByPrimaryKey" parameterType="com.yzz.entity.WxCmsMenu">
+update wx_cms_menu set 
+wx_cms_public_account_id = #{wxCmsPublicAccountId,jdbcType=VARCHAR},
+media_id = #{mediaId,jdbcType=VARCHAR},
+type = #{type,jdbcType=VARCHAR},
+name = #{name,jdbcType=VARCHAR},
+key = #{key,jdbcType=VARCHAR},
+url = #{url,jdbcType=LONGVARCHAR},
+sort = #{sort,jdbcType=INTEGER},
+parent_id = #{parentId,jdbcType=VARCHAR},
+ground_id = #{groundId,jdbcType=INTEGER}
+ 
+where wx_cms_menu_id = #{wxCmsMenuId,jdbcType=VARCHAR}
+</update>
+
+<update id="updateByPrimaryKeySelective" parameterType="com.yzz.entity.WxCmsMenu">
+update wx_cms_menu <set> 
+<if test="wxCmsPublicAccountId != null">
+ wx_cms_public_account_id = #{wxCmsPublicAccountId,jdbcType=VARCHAR},
+</if>
+<if test="mediaId != null">
+ media_id = #{mediaId,jdbcType=VARCHAR},
+</if>
+<if test="type != null">
+ type = #{type,jdbcType=VARCHAR},
+</if>
+<if test="name != null">
+ name = #{name,jdbcType=VARCHAR},
+</if>
+<if test="key != null">
+ key = #{key,jdbcType=VARCHAR},
+</if>
+<if test="url != null">
+ url = #{url,jdbcType=LONGVARCHAR},
+</if>
+<if test="sort != null">
+ sort = #{sort,jdbcType=INTEGER},
+</if>
+<if test="parentId != null">
+ parent_id = #{parentId,jdbcType=VARCHAR},
+</if>
+<if test="groundId != null">
+ ground_id = #{groundId,jdbcType=INTEGER},
+</if>
+</set>
+ 
+where wx_cms_menu_id = #{wxCmsMenuId,jdbcType=VARCHAR}
+</update>
+
+<select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String">
+select
+<include refid="Base_Column_List" />
+from wx_cms_menu 
+where wx_cms_menu_id = #{wxCmsMenuId,jdbcType=VARCHAR}
+</select>
+
+<select id="selectByEntityAndPage" resultMap="BaseResultMap" >
+select
+<include refid="Base_Column_List" />
+from wx_cms_menu 
+<if test="entity != null">
+<where>
+ <if test="entity.wxCmsMenuId != null">
+and wx_cms_menu_id = #{entity.wxCmsMenuId,jdbcType=VARCHAR}
+</if>
+<if test="entity.wxCmsPublicAccountId != null">
+and wx_cms_public_account_id = #{entity.wxCmsPublicAccountId,jdbcType=VARCHAR}
+</if>
+<if test="entity.mediaId != null">
+and media_id = #{entity.mediaId,jdbcType=VARCHAR}
+</if>
+<if test="entity.type != null">
+and type = #{entity.type,jdbcType=VARCHAR}
+</if>
+<if test="entity.name != null">
+and name = #{entity.name,jdbcType=VARCHAR}
+</if>
+<if test="entity.key != null">
+and key = #{entity.key,jdbcType=VARCHAR}
+</if>
+<if test="entity.url != null">
+and url = #{entity.url,jdbcType=LONGVARCHAR}
+</if>
+<if test="entity.sort != null">
+and sort = #{entity.sort,jdbcType=INTEGER}
+</if>
+<if test="entity.parentId != null">
+and parent_id = #{entity.parentId,jdbcType=VARCHAR}
+</if>
+<if test="entity.groundId != null">
+and ground_id = #{entity.groundId,jdbcType=INTEGER}
+</if>
+</where>
+</if>
+<if test="page != null">
+<if test="page.orderField != null">
+order by #{page.orderField,jdbcType=VARCHAR} #{page.sort,jdbcType=VARCHAR}
+</if>
+<if test="page.start != null">
+limit #{page.start,jdbcType=INTEGER}, #{page.pageSize,jdbcType=INTEGER}
+</if>
+</if>
+</select>
+
+<select id="countByEntity" resultType="java.lang.Integer" >
+select count(*) from wx_cms_menu 
+<if test="entity != null">
+<where>
+ <if test="entity.wxCmsMenuId != null">
+and wx_cms_menu_id = #{entity.wxCmsMenuId,jdbcType=VARCHAR}
+</if>
+<if test="entity.wxCmsPublicAccountId != null">
+and wx_cms_public_account_id = #{entity.wxCmsPublicAccountId,jdbcType=VARCHAR}
+</if>
+<if test="entity.mediaId != null">
+and media_id = #{entity.mediaId,jdbcType=VARCHAR}
+</if>
+<if test="entity.type != null">
+and type = #{entity.type,jdbcType=VARCHAR}
+</if>
+<if test="entity.name != null">
+and name = #{entity.name,jdbcType=VARCHAR}
+</if>
+<if test="entity.key != null">
+and key = #{entity.key,jdbcType=VARCHAR}
+</if>
+<if test="entity.url != null">
+and url = #{entity.url,jdbcType=LONGVARCHAR}
+</if>
+<if test="entity.sort != null">
+and sort = #{entity.sort,jdbcType=INTEGER}
+</if>
+<if test="entity.parentId != null">
+and parent_id = #{entity.parentId,jdbcType=VARCHAR}
+</if>
+<if test="entity.groundId != null">
+and ground_id = #{entity.groundId,jdbcType=INTEGER}
+</if>
+</where>
+</if>
+</select>
+
+</mapper>

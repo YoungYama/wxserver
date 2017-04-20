@@ -1,31 +1,24 @@
 package com.yzz.entity; 
 
-import javax.persistence.Entity; 
-import javax.persistence.Id; 
-import javax.persistence.Table; 
-
 /** 
 * 
-* @description: sys_log表SysLog实体类 
+* @description: sys_log表的实体类SysLog 
 * 
 * @author 杨志钊 
-* @date 2017-04-07 18:43:38 
-*/
+* @date 2017-04-17 18:20:30 
+*/ 
 
-@Entity 
-@Table(name = "sys_log") 
-public class SysLog { 
+public class SysLog {
 
-	@Id 
- 	private String sysLogId;//日志ID
+	private String sysLogId;//日志ID
 
-	private Integer logTypeId;//日志类型ID
+	private Integer sysLogTypeId;//日志类型ID
 
 	private String sysUserId;//c操作记录对应的用户ID
 
-	private String wxPublicAccountId;//所属公账号ID
+	private String wxCmsPublicAccountId;//所属公众号ID
 
-	private String modelTypeName;//操作所属模块
+	private Integer sysModelId;//操作所属系统模块ID
 
 	private String operationContent;//用户具体操作内容
 
@@ -43,13 +36,14 @@ public class SysLog {
  		this.sysLogId = sysLogId == null ? null : sysLogId.trim(); 
 	} 
 
-	public Integer getLogTypeId() { 
-		return logTypeId; 
+	public Integer getSysLogTypeId() { 
+		return sysLogTypeId; 
 	} 
 
-	public void setLogTypeId(Integer logTypeId) { 
- 		this.logTypeId = logTypeId; 
+	public void setSysLogTypeId(Integer sysLogTypeId) { 
+ 		this.sysLogTypeId = sysLogTypeId; 
 	} 
+
 	public String getSysUserId() { 
 		return sysUserId; 
 	} 
@@ -58,20 +52,20 @@ public class SysLog {
  		this.sysUserId = sysUserId == null ? null : sysUserId.trim(); 
 	} 
 
-	public String getWxPublicAccountId() { 
-		return wxPublicAccountId; 
+	public String getWxCmsPublicAccountId() { 
+		return wxCmsPublicAccountId; 
 	} 
 
-	public void setWxPublicAccountId(String wxPublicAccountId) { 
- 		this.wxPublicAccountId = wxPublicAccountId == null ? null : wxPublicAccountId.trim(); 
+	public void setWxCmsPublicAccountId(String wxCmsPublicAccountId) { 
+ 		this.wxCmsPublicAccountId = wxCmsPublicAccountId == null ? null : wxCmsPublicAccountId.trim(); 
 	} 
 
-	public String getModelTypeName() { 
-		return modelTypeName; 
+	public Integer getSysModelId() { 
+		return sysModelId; 
 	} 
 
-	public void setModelTypeName(String modelTypeName) { 
- 		this.modelTypeName = modelTypeName == null ? null : modelTypeName.trim(); 
+	public void setSysModelId(Integer sysModelId) { 
+ 		this.sysModelId = sysModelId; 
 	} 
 
 	public String getOperationContent() { 

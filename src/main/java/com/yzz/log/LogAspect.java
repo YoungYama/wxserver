@@ -32,10 +32,10 @@ public class LogAspect {
 	// 此注解是后置增强，方法执行成功后会执行
 	@AfterReturning("within(com.yzz.ctrl..*) && @annotation(logInfo)")
 	public void OperationSuccessLog(final JoinPoint joinPoint, final LogInfo logInfo) {
-		sysUser = ((SysUser) session.getAttribute(ConstantUtil.LOGINING_SYSUSER));
+		sysUser = ((SysUser) session.getAttribute(ConstantUtil.LOGINING_SYS_USER));
 
-		String modelTypeName = logInfo.modelTypeName();// 要执行的操作的模块名称比如：人员管理模块
-		String operationTypeName = logInfo.operationTypeName();// 要执行的操作类型名称比如：添加
+		String modelTypeName = logInfo.modelType();// 要执行的操作的模块名称比如：人员管理模块
+		String operationTypeName = logInfo.logType();// 要执行的操作类型名称比如：添加
 		String operationContent = logInfo.operationContent();// 要执行的具体操作比如：XX添加了用户
 
 		String targetName = joinPoint.getTarget().getClass().getName();// 获取目标类名
@@ -49,10 +49,10 @@ public class LogAspect {
 	// 该方法体为异常通知，当目标方法出现异常时，执行该方法体
 	@AfterThrowing(pointcut = "within(com.yzz.ctrl..*) && @annotation(logInfo)", throwing = "e")
 	public void OperationFailureLog(final JoinPoint joinPoint, final LogInfo logInfo, Exception e) {
-		sysUser = ((SysUser) session.getAttribute(ConstantUtil.LOGINING_SYSUSER));
+		sysUser = ((SysUser) session.getAttribute(ConstantUtil.LOGINING_SYS_USER));
 
-		String modelTypeName = logInfo.modelTypeName();// 要执行的操作的模块名称比如：人员管理模块
-		String operationTypeName = logInfo.operationTypeName();// 要执行的操作类型名称比如：添加
+		String modelTypeName = logInfo.modelType();// 要执行的操作的模块名称比如：人员管理模块
+		String operationTypeName = logInfo.logType();// 要执行的操作类型名称比如：添加
 		String operationContent = logInfo.operationContent();// 要执行的具体操作比如：XX添加了用户
 
 		String targetName = joinPoint.getTarget().getClass().getName();// 获取目标类名

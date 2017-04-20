@@ -1,0 +1,179 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.yzz.dao.SysLogDao">
+<resultMap id="BaseResultMap" type="com.yzz.entity.SysLog">
+<id column="sys_log_id" property="sysLogId" jdbcType="VARCHAR" />
+<result column="sys_log_type_id" property="sysLogTypeId" jdbcType="INTEGER" />
+<result column="sys_user_id" property="sysUserId" jdbcType="VARCHAR" />
+<result column="wx_cms_public_account_id" property="wxCmsPublicAccountId" jdbcType="VARCHAR" />
+<result column="model_type_name" property="modelTypeName" jdbcType="VARCHAR" />
+<result column="operation_content" property="operationContent" jdbcType="VARCHAR" />
+<result column="operation_class_name" property="operationClassName" jdbcType="VARCHAR" />
+<result column="operation_method_name" property="operationMethodName" jdbcType="VARCHAR" />
+<result column="operation_time" property="operationTime" jdbcType="VARCHAR" />
+</resultMap>
+<sql id="Base_Column_List">
+sys_log_id,sys_log_type_id,sys_user_id,wx_cms_public_account_id,model_type_name,operation_content,operation_class_name,operation_method_name,operation_time
+</sql>
+<insert id="insert" parameterType="com.yzz.entity.SysLog">
+insert into sys_log 
+( sys_log_id,sys_log_type_id,sys_user_id,wx_cms_public_account_id,model_type_name,operation_content,operation_class_name,operation_method_name,operation_time)
+values (#{sysLogId,jdbcType=VARCHAR},
+#{sysLogTypeId,jdbcType=INTEGER},
+#{sysUserId,jdbcType=VARCHAR},
+#{wxCmsPublicAccountId,jdbcType=VARCHAR},
+#{modelTypeName,jdbcType=VARCHAR},
+#{operationContent,jdbcType=VARCHAR},
+#{operationClassName,jdbcType=VARCHAR},
+#{operationMethodName,jdbcType=VARCHAR},
+#{operationTime,jdbcType=VARCHAR}) 
+</insert>
+
+<delete id="deleteBatch" parameterType="java.util.List">
+delete
+from sys_log 
+where sys_log_id in 
+<foreach collection="list" item="item" open="(" separator="," close=")"> 
+ #{item} 
+ </foreach>
+</delete>
+
+<delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+delete
+from sys_log 
+where sys_log_id = #{sysLogId,jdbcType=VARCHAR}
+</delete>
+
+<update id="updateByPrimaryKey" parameterType="com.yzz.entity.SysLog">
+update sys_log set 
+sys_log_type_id = #{sysLogTypeId,jdbcType=INTEGER},
+sys_user_id = #{sysUserId,jdbcType=VARCHAR},
+wx_cms_public_account_id = #{wxCmsPublicAccountId,jdbcType=VARCHAR},
+model_type_name = #{modelTypeName,jdbcType=VARCHAR},
+operation_content = #{operationContent,jdbcType=VARCHAR},
+operation_class_name = #{operationClassName,jdbcType=VARCHAR},
+operation_method_name = #{operationMethodName,jdbcType=VARCHAR},
+operation_time = #{operationTime,jdbcType=VARCHAR}
+ 
+where sys_log_id = #{sysLogId,jdbcType=VARCHAR}
+</update>
+
+<update id="updateByPrimaryKeySelective" parameterType="com.yzz.entity.SysLog">
+update sys_log <set> 
+<if test="sysLogTypeId != null">
+ sys_log_type_id = #{sysLogTypeId,jdbcType=INTEGER},
+</if>
+<if test="sysUserId != null">
+ sys_user_id = #{sysUserId,jdbcType=VARCHAR},
+</if>
+<if test="wxCmsPublicAccountId != null">
+ wx_cms_public_account_id = #{wxCmsPublicAccountId,jdbcType=VARCHAR},
+</if>
+<if test="modelTypeName != null">
+ model_type_name = #{modelTypeName,jdbcType=VARCHAR},
+</if>
+<if test="operationContent != null">
+ operation_content = #{operationContent,jdbcType=VARCHAR},
+</if>
+<if test="operationClassName != null">
+ operation_class_name = #{operationClassName,jdbcType=VARCHAR},
+</if>
+<if test="operationMethodName != null">
+ operation_method_name = #{operationMethodName,jdbcType=VARCHAR},
+</if>
+<if test="operationTime != null">
+ operation_time = #{operationTime,jdbcType=VARCHAR},
+</if>
+</set>
+ 
+where sys_log_id = #{sysLogId,jdbcType=VARCHAR}
+</update>
+
+<select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String">
+select
+<include refid="Base_Column_List" />
+from sys_log 
+where sys_log_id = #{sysLogId,jdbcType=VARCHAR}
+</select>
+
+<select id="selectByEntityAndPage" resultMap="BaseResultMap" >
+select
+<include refid="Base_Column_List" />
+from sys_log 
+<if test="entity != null">
+<where>
+ <if test="entity.sysLogId != null">
+and sys_log_id = #{entity.sysLogId,jdbcType=VARCHAR}
+</if>
+<if test="entity.sysLogTypeId != null">
+and sys_log_type_id = #{entity.sysLogTypeId,jdbcType=INTEGER}
+</if>
+<if test="entity.sysUserId != null">
+and sys_user_id = #{entity.sysUserId,jdbcType=VARCHAR}
+</if>
+<if test="entity.wxCmsPublicAccountId != null">
+and wx_cms_public_account_id = #{entity.wxCmsPublicAccountId,jdbcType=VARCHAR}
+</if>
+<if test="entity.modelTypeName != null">
+and model_type_name = #{entity.modelTypeName,jdbcType=VARCHAR}
+</if>
+<if test="entity.operationContent != null">
+and operation_content = #{entity.operationContent,jdbcType=VARCHAR}
+</if>
+<if test="entity.operationClassName != null">
+and operation_class_name = #{entity.operationClassName,jdbcType=VARCHAR}
+</if>
+<if test="entity.operationMethodName != null">
+and operation_method_name = #{entity.operationMethodName,jdbcType=VARCHAR}
+</if>
+<if test="entity.operationTime != null">
+and operation_time = #{entity.operationTime,jdbcType=VARCHAR}
+</if>
+</where>
+</if>
+<if test="page != null">
+<if test="page.orderField != null">
+order by #{page.orderField,jdbcType=VARCHAR} #{page.sort,jdbcType=VARCHAR}
+</if>
+<if test="page.start != null">
+limit #{page.start,jdbcType=INTEGER}, #{page.pageSize,jdbcType=INTEGER}
+</if>
+</if>
+</select>
+
+<select id="countByEntity" resultType="java.lang.Integer" >
+select count(*) from sys_log 
+<if test="entity != null">
+<where>
+ <if test="entity.sysLogId != null">
+and sys_log_id = #{entity.sysLogId,jdbcType=VARCHAR}
+</if>
+<if test="entity.sysLogTypeId != null">
+and sys_log_type_id = #{entity.sysLogTypeId,jdbcType=INTEGER}
+</if>
+<if test="entity.sysUserId != null">
+and sys_user_id = #{entity.sysUserId,jdbcType=VARCHAR}
+</if>
+<if test="entity.wxCmsPublicAccountId != null">
+and wx_cms_public_account_id = #{entity.wxCmsPublicAccountId,jdbcType=VARCHAR}
+</if>
+<if test="entity.modelTypeName != null">
+and model_type_name = #{entity.modelTypeName,jdbcType=VARCHAR}
+</if>
+<if test="entity.operationContent != null">
+and operation_content = #{entity.operationContent,jdbcType=VARCHAR}
+</if>
+<if test="entity.operationClassName != null">
+and operation_class_name = #{entity.operationClassName,jdbcType=VARCHAR}
+</if>
+<if test="entity.operationMethodName != null">
+and operation_method_name = #{entity.operationMethodName,jdbcType=VARCHAR}
+</if>
+<if test="entity.operationTime != null">
+and operation_time = #{entity.operationTime,jdbcType=VARCHAR}
+</if>
+</where>
+</if>
+</select>
+
+</mapper>

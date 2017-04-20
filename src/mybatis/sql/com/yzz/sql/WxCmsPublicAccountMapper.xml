@@ -1,0 +1,179 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.yzz.dao.WxCmsPublicAccountDao">
+<resultMap id="BaseResultMap" type="com.yzz.entity.WxCmsPublicAccount">
+<id column="wx_cms_public_account_id" property="wxCmsPublicAccountId" jdbcType="VARCHAR" />
+<result column="url" property="url" jdbcType="VARCHAR" />
+<result column="token" property="token" jdbcType="VARCHAR" />
+<result column="encoding_aes_key" property="encodingAesKey" jdbcType="VARCHAR" />
+<result column="grant_type" property="grantType" jdbcType="VARCHAR" />
+<result column="app_id" property="appId" jdbcType="VARCHAR" />
+<result column="app_secret" property="appSecret" jdbcType="VARCHAR" />
+<result column="access_token" property="accessToken" jdbcType="VARCHAR" />
+<result column="access_token_last_modify_time" property="accessTokenLastModifyTime" jdbcType="VARCHAR" />
+</resultMap>
+<sql id="Base_Column_List">
+wx_cms_public_account_id,url,token,encoding_aes_key,grant_type,app_id,app_secret,access_token,access_token_last_modify_time
+</sql>
+<insert id="insert" parameterType="com.yzz.entity.WxCmsPublicAccount">
+insert into wx_cms_public_account 
+( wx_cms_public_account_id,url,token,encoding_aes_key,grant_type,app_id,app_secret,access_token,access_token_last_modify_time)
+values (#{wxCmsPublicAccountId,jdbcType=VARCHAR},
+#{url,jdbcType=VARCHAR},
+#{token,jdbcType=VARCHAR},
+#{encodingAesKey,jdbcType=VARCHAR},
+#{grantType,jdbcType=VARCHAR},
+#{appId,jdbcType=VARCHAR},
+#{appSecret,jdbcType=VARCHAR},
+#{accessToken,jdbcType=VARCHAR},
+#{accessTokenLastModifyTime,jdbcType=VARCHAR}) 
+</insert>
+
+<delete id="deleteBatch" parameterType="java.util.List">
+delete
+from wx_cms_public_account 
+where wx_cms_public_account_id in 
+<foreach collection="list" item="item" open="(" separator="," close=")"> 
+ #{item} 
+ </foreach>
+</delete>
+
+<delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+delete
+from wx_cms_public_account 
+where wx_cms_public_account_id = #{wxCmsPublicAccountId,jdbcType=VARCHAR}
+</delete>
+
+<update id="updateByPrimaryKey" parameterType="com.yzz.entity.WxCmsPublicAccount">
+update wx_cms_public_account set 
+url = #{url,jdbcType=VARCHAR},
+token = #{token,jdbcType=VARCHAR},
+encoding_aes_key = #{encodingAesKey,jdbcType=VARCHAR},
+grant_type = #{grantType,jdbcType=VARCHAR},
+app_id = #{appId,jdbcType=VARCHAR},
+app_secret = #{appSecret,jdbcType=VARCHAR},
+access_token = #{accessToken,jdbcType=VARCHAR},
+access_token_last_modify_time = #{accessTokenLastModifyTime,jdbcType=VARCHAR}
+ 
+where wx_cms_public_account_id = #{wxCmsPublicAccountId,jdbcType=VARCHAR}
+</update>
+
+<update id="updateByPrimaryKeySelective" parameterType="com.yzz.entity.WxCmsPublicAccount">
+update wx_cms_public_account <set> 
+<if test="url != null">
+ url = #{url,jdbcType=VARCHAR},
+</if>
+<if test="token != null">
+ token = #{token,jdbcType=VARCHAR},
+</if>
+<if test="encodingAesKey != null">
+ encoding_aes_key = #{encodingAesKey,jdbcType=VARCHAR},
+</if>
+<if test="grantType != null">
+ grant_type = #{grantType,jdbcType=VARCHAR},
+</if>
+<if test="appId != null">
+ app_id = #{appId,jdbcType=VARCHAR},
+</if>
+<if test="appSecret != null">
+ app_secret = #{appSecret,jdbcType=VARCHAR},
+</if>
+<if test="accessToken != null">
+ access_token = #{accessToken,jdbcType=VARCHAR},
+</if>
+<if test="accessTokenLastModifyTime != null">
+ access_token_last_modify_time = #{accessTokenLastModifyTime,jdbcType=VARCHAR},
+</if>
+</set>
+ 
+where wx_cms_public_account_id = #{wxCmsPublicAccountId,jdbcType=VARCHAR}
+</update>
+
+<select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String">
+select
+<include refid="Base_Column_List" />
+from wx_cms_public_account 
+where wx_cms_public_account_id = #{wxCmsPublicAccountId,jdbcType=VARCHAR}
+</select>
+
+<select id="selectByEntityAndPage" resultMap="BaseResultMap" >
+select
+<include refid="Base_Column_List" />
+from wx_cms_public_account 
+<if test="entity != null">
+<where>
+ <if test="entity.wxCmsPublicAccountId != null">
+and wx_cms_public_account_id = #{entity.wxCmsPublicAccountId,jdbcType=VARCHAR}
+</if>
+<if test="entity.url != null">
+and url = #{entity.url,jdbcType=VARCHAR}
+</if>
+<if test="entity.token != null">
+and token = #{entity.token,jdbcType=VARCHAR}
+</if>
+<if test="entity.encodingAesKey != null">
+and encoding_aes_key = #{entity.encodingAesKey,jdbcType=VARCHAR}
+</if>
+<if test="entity.grantType != null">
+and grant_type = #{entity.grantType,jdbcType=VARCHAR}
+</if>
+<if test="entity.appId != null">
+and app_id = #{entity.appId,jdbcType=VARCHAR}
+</if>
+<if test="entity.appSecret != null">
+and app_secret = #{entity.appSecret,jdbcType=VARCHAR}
+</if>
+<if test="entity.accessToken != null">
+and access_token = #{entity.accessToken,jdbcType=VARCHAR}
+</if>
+<if test="entity.accessTokenLastModifyTime != null">
+and access_token_last_modify_time = #{entity.accessTokenLastModifyTime,jdbcType=VARCHAR}
+</if>
+</where>
+</if>
+<if test="page != null">
+<if test="page.orderField != null">
+order by #{page.orderField,jdbcType=VARCHAR} #{page.sort,jdbcType=VARCHAR}
+</if>
+<if test="page.start != null">
+limit #{page.start,jdbcType=INTEGER}, #{page.pageSize,jdbcType=INTEGER}
+</if>
+</if>
+</select>
+
+<select id="countByEntity" resultType="java.lang.Integer" >
+select count(*) from wx_cms_public_account 
+<if test="entity != null">
+<where>
+ <if test="entity.wxCmsPublicAccountId != null">
+and wx_cms_public_account_id = #{entity.wxCmsPublicAccountId,jdbcType=VARCHAR}
+</if>
+<if test="entity.url != null">
+and url = #{entity.url,jdbcType=VARCHAR}
+</if>
+<if test="entity.token != null">
+and token = #{entity.token,jdbcType=VARCHAR}
+</if>
+<if test="entity.encodingAesKey != null">
+and encoding_aes_key = #{entity.encodingAesKey,jdbcType=VARCHAR}
+</if>
+<if test="entity.grantType != null">
+and grant_type = #{entity.grantType,jdbcType=VARCHAR}
+</if>
+<if test="entity.appId != null">
+and app_id = #{entity.appId,jdbcType=VARCHAR}
+</if>
+<if test="entity.appSecret != null">
+and app_secret = #{entity.appSecret,jdbcType=VARCHAR}
+</if>
+<if test="entity.accessToken != null">
+and access_token = #{entity.accessToken,jdbcType=VARCHAR}
+</if>
+<if test="entity.accessTokenLastModifyTime != null">
+and access_token_last_modify_time = #{entity.accessTokenLastModifyTime,jdbcType=VARCHAR}
+</if>
+</where>
+</if>
+</select>
+
+</mapper>

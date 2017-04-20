@@ -1,0 +1,239 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.yzz.dao.WxCmsNewsDao">
+<resultMap id="BaseResultMap" type="com.yzz.entity.WxCmsNews">
+<id column="wx_cms_news_id" property="wxCmsNewsId" jdbcType="VARCHAR" />
+<result column="sys_user_id" property="sysUserId" jdbcType="VARCHAR" />
+<result column="wx_cms_public_account_id" property="wxCmsPublicAccountId" jdbcType="VARCHAR" />
+<result column="media_id" property="mediaId" jdbcType="VARCHAR" />
+<result column="title" property="title" jdbcType="VARCHAR" />
+<result column="thumb_media_id" property="thumbMediaId" jdbcType="VARCHAR" />
+<result column="show_cover_pic" property="showCoverPic" jdbcType="VARCHAR" />
+<result column="author" property="author" jdbcType="VARCHAR" />
+<result column="digest" property="digest" jdbcType="VARCHAR" />
+<result column="content" property="content" jdbcType="LONGVARCHAR" />
+<result column="url" property="url" jdbcType="VARCHAR" />
+<result column="content_source_url" property="contentSourceUrl" jdbcType="VARCHAR" />
+<result column="update_time" property="updateTime" jdbcType="VARCHAR" />
+<result column="create_time" property="createTime" jdbcType="VARCHAR" />
+</resultMap>
+<sql id="Base_Column_List">
+wx_cms_news_id,sys_user_id,wx_cms_public_account_id,media_id,title,thumb_media_id,show_cover_pic,author,digest,content,url,content_source_url,update_time,create_time
+</sql>
+<insert id="insert" parameterType="com.yzz.entity.WxCmsNews">
+insert into wx_cms_news 
+( wx_cms_news_id,sys_user_id,wx_cms_public_account_id,media_id,title,thumb_media_id,show_cover_pic,author,digest,content,url,content_source_url,update_time,create_time)
+values (#{wxCmsNewsId,jdbcType=VARCHAR},
+#{sysUserId,jdbcType=VARCHAR},
+#{wxCmsPublicAccountId,jdbcType=VARCHAR},
+#{mediaId,jdbcType=VARCHAR},
+#{title,jdbcType=VARCHAR},
+#{thumbMediaId,jdbcType=VARCHAR},
+#{showCoverPic,jdbcType=VARCHAR},
+#{author,jdbcType=VARCHAR},
+#{digest,jdbcType=VARCHAR},
+#{content,jdbcType=LONGVARCHAR},
+#{url,jdbcType=VARCHAR},
+#{contentSourceUrl,jdbcType=VARCHAR},
+#{updateTime,jdbcType=VARCHAR},
+#{createTime,jdbcType=VARCHAR}) 
+</insert>
+
+<delete id="deleteBatch" parameterType="java.util.List">
+delete
+from wx_cms_news 
+where wx_cms_news_id in 
+<foreach collection="list" item="item" open="(" separator="," close=")"> 
+ #{item} 
+ </foreach>
+</delete>
+
+<delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+delete
+from wx_cms_news 
+where wx_cms_news_id = #{wxCmsNewsId,jdbcType=VARCHAR}
+</delete>
+
+<update id="updateByPrimaryKey" parameterType="com.yzz.entity.WxCmsNews">
+update wx_cms_news set 
+sys_user_id = #{sysUserId,jdbcType=VARCHAR},
+wx_cms_public_account_id = #{wxCmsPublicAccountId,jdbcType=VARCHAR},
+media_id = #{mediaId,jdbcType=VARCHAR},
+title = #{title,jdbcType=VARCHAR},
+thumb_media_id = #{thumbMediaId,jdbcType=VARCHAR},
+show_cover_pic = #{showCoverPic,jdbcType=VARCHAR},
+author = #{author,jdbcType=VARCHAR},
+digest = #{digest,jdbcType=VARCHAR},
+content = #{content,jdbcType=LONGVARCHAR},
+url = #{url,jdbcType=VARCHAR},
+content_source_url = #{contentSourceUrl,jdbcType=VARCHAR},
+update_time = #{updateTime,jdbcType=VARCHAR},
+create_time = #{createTime,jdbcType=VARCHAR}
+ 
+where wx_cms_news_id = #{wxCmsNewsId,jdbcType=VARCHAR}
+</update>
+
+<update id="updateByPrimaryKeySelective" parameterType="com.yzz.entity.WxCmsNews">
+update wx_cms_news <set> 
+<if test="sysUserId != null">
+ sys_user_id = #{sysUserId,jdbcType=VARCHAR},
+</if>
+<if test="wxCmsPublicAccountId != null">
+ wx_cms_public_account_id = #{wxCmsPublicAccountId,jdbcType=VARCHAR},
+</if>
+<if test="mediaId != null">
+ media_id = #{mediaId,jdbcType=VARCHAR},
+</if>
+<if test="title != null">
+ title = #{title,jdbcType=VARCHAR},
+</if>
+<if test="thumbMediaId != null">
+ thumb_media_id = #{thumbMediaId,jdbcType=VARCHAR},
+</if>
+<if test="showCoverPic != null">
+ show_cover_pic = #{showCoverPic,jdbcType=VARCHAR},
+</if>
+<if test="author != null">
+ author = #{author,jdbcType=VARCHAR},
+</if>
+<if test="digest != null">
+ digest = #{digest,jdbcType=VARCHAR},
+</if>
+<if test="content != null">
+ content = #{content,jdbcType=LONGVARCHAR},
+</if>
+<if test="url != null">
+ url = #{url,jdbcType=VARCHAR},
+</if>
+<if test="contentSourceUrl != null">
+ content_source_url = #{contentSourceUrl,jdbcType=VARCHAR},
+</if>
+<if test="updateTime != null">
+ update_time = #{updateTime,jdbcType=VARCHAR},
+</if>
+<if test="createTime != null">
+ create_time = #{createTime,jdbcType=VARCHAR},
+</if>
+</set>
+ 
+where wx_cms_news_id = #{wxCmsNewsId,jdbcType=VARCHAR}
+</update>
+
+<select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String">
+select
+<include refid="Base_Column_List" />
+from wx_cms_news 
+where wx_cms_news_id = #{wxCmsNewsId,jdbcType=VARCHAR}
+</select>
+
+<select id="selectByEntityAndPage" resultMap="BaseResultMap" >
+select
+<include refid="Base_Column_List" />
+from wx_cms_news 
+<if test="entity != null">
+<where>
+ <if test="entity.wxCmsNewsId != null">
+and wx_cms_news_id = #{entity.wxCmsNewsId,jdbcType=VARCHAR}
+</if>
+<if test="entity.sysUserId != null">
+and sys_user_id = #{entity.sysUserId,jdbcType=VARCHAR}
+</if>
+<if test="entity.wxCmsPublicAccountId != null">
+and wx_cms_public_account_id = #{entity.wxCmsPublicAccountId,jdbcType=VARCHAR}
+</if>
+<if test="entity.mediaId != null">
+and media_id = #{entity.mediaId,jdbcType=VARCHAR}
+</if>
+<if test="entity.title != null">
+and title = #{entity.title,jdbcType=VARCHAR}
+</if>
+<if test="entity.thumbMediaId != null">
+and thumb_media_id = #{entity.thumbMediaId,jdbcType=VARCHAR}
+</if>
+<if test="entity.showCoverPic != null">
+and show_cover_pic = #{entity.showCoverPic,jdbcType=VARCHAR}
+</if>
+<if test="entity.author != null">
+and author = #{entity.author,jdbcType=VARCHAR}
+</if>
+<if test="entity.digest != null">
+and digest = #{entity.digest,jdbcType=VARCHAR}
+</if>
+<if test="entity.content != null">
+and content = #{entity.content,jdbcType=LONGVARCHAR}
+</if>
+<if test="entity.url != null">
+and url = #{entity.url,jdbcType=VARCHAR}
+</if>
+<if test="entity.contentSourceUrl != null">
+and content_source_url = #{entity.contentSourceUrl,jdbcType=VARCHAR}
+</if>
+<if test="entity.updateTime != null">
+and update_time = #{entity.updateTime,jdbcType=VARCHAR}
+</if>
+<if test="entity.createTime != null">
+and create_time = #{entity.createTime,jdbcType=VARCHAR}
+</if>
+</where>
+</if>
+<if test="page != null">
+<if test="page.orderField != null">
+order by #{page.orderField,jdbcType=VARCHAR} #{page.sort,jdbcType=VARCHAR}
+</if>
+<if test="page.start != null">
+limit #{page.start,jdbcType=INTEGER}, #{page.pageSize,jdbcType=INTEGER}
+</if>
+</if>
+</select>
+
+<select id="countByEntity" resultType="java.lang.Integer" >
+select count(*) from wx_cms_news 
+<if test="entity != null">
+<where>
+ <if test="entity.wxCmsNewsId != null">
+and wx_cms_news_id = #{entity.wxCmsNewsId,jdbcType=VARCHAR}
+</if>
+<if test="entity.sysUserId != null">
+and sys_user_id = #{entity.sysUserId,jdbcType=VARCHAR}
+</if>
+<if test="entity.wxCmsPublicAccountId != null">
+and wx_cms_public_account_id = #{entity.wxCmsPublicAccountId,jdbcType=VARCHAR}
+</if>
+<if test="entity.mediaId != null">
+and media_id = #{entity.mediaId,jdbcType=VARCHAR}
+</if>
+<if test="entity.title != null">
+and title = #{entity.title,jdbcType=VARCHAR}
+</if>
+<if test="entity.thumbMediaId != null">
+and thumb_media_id = #{entity.thumbMediaId,jdbcType=VARCHAR}
+</if>
+<if test="entity.showCoverPic != null">
+and show_cover_pic = #{entity.showCoverPic,jdbcType=VARCHAR}
+</if>
+<if test="entity.author != null">
+and author = #{entity.author,jdbcType=VARCHAR}
+</if>
+<if test="entity.digest != null">
+and digest = #{entity.digest,jdbcType=VARCHAR}
+</if>
+<if test="entity.content != null">
+and content = #{entity.content,jdbcType=LONGVARCHAR}
+</if>
+<if test="entity.url != null">
+and url = #{entity.url,jdbcType=VARCHAR}
+</if>
+<if test="entity.contentSourceUrl != null">
+and content_source_url = #{entity.contentSourceUrl,jdbcType=VARCHAR}
+</if>
+<if test="entity.updateTime != null">
+and update_time = #{entity.updateTime,jdbcType=VARCHAR}
+</if>
+<if test="entity.createTime != null">
+and create_time = #{entity.createTime,jdbcType=VARCHAR}
+</if>
+</where>
+</if>
+</select>
+
+</mapper>

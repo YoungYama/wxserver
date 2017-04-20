@@ -4,7 +4,10 @@ import java.io.UnsupportedEncodingException;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.Arrays;
+import sun.misc.BASE64Encoder;
+import sun.misc.BASE64Decoder;
 
+@SuppressWarnings("restriction")
 public class EncryptionUtil {
 
 	/**
@@ -64,7 +67,7 @@ public class EncryptionUtil {
 	 * @param str
 	 * @return
 	 */
-	/*public static String encodeByBase64(String str) {
+	public static String encodeByBase64(String str) {
 		byte[] b = null;
 		String s = null;
 		try {
@@ -76,7 +79,7 @@ public class EncryptionUtil {
 			s = new BASE64Encoder().encode(b);
 		}
 		return s;
-	}*/
+	}
 
 	/**
 	 * Base64解密
@@ -84,7 +87,7 @@ public class EncryptionUtil {
 	 * @param str
 	 * @return
 	 */
-	/*public static String decodeByBase64(String str) {
+	public static String decodeByBase64(String str) {
 		byte[] b = null;
 		String result = null;
 		if (str != null) {
@@ -97,7 +100,7 @@ public class EncryptionUtil {
 			}
 		}
 		return result;
-	}*/
+	}
 
 	/**
 	 * MD5加密

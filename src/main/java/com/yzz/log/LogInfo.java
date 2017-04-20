@@ -18,13 +18,13 @@ import java.lang.annotation.Target;
 @Documented
 public @interface LogInfo {
 
-	/** 要执行的操作的模块类型名称比如：人员管理模块 **/
-	public String modelTypeName();
+	/** 要执行的操作的模块类型名称比如：1（系统用户管理）**/
+	public String modelType();
 
-	/** 要执行的操作类型名称比如：添加 **/
-	public String operationTypeName();
-
-	/** 要执行的具体操作比如：XX添加了用户 **/
+	/** 要执行的操作的日志类型ID比如：5（电脑网站登录） **/
+	public String logType();
+	
+	/** 要执行的具体操作比如：XX添加了用户XX **/
 	public String operationContent();
 
 }

@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.yzz.dao.WxCmsMenuGroundDao">
+<resultMap id="BaseResultMap" type="com.yzz.entity.WxCmsMenuGround">
+<id column="wx_cms_menu_ground_id" property="wxCmsMenuGroundId" jdbcType="INTEGER" />
+<result column="name" property="name" jdbcType="VARCHAR" />
+<result column="wx_cms_public_account_id" property="wxCmsPublicAccountId" jdbcType="VARCHAR" />
+<result column="is_enable" property="isEnable" jdbcType="INTEGER" />
+</resultMap>
+<sql id="Base_Column_List">
+wx_cms_menu_ground_id,name,wx_cms_public_account_id,is_enable
+</sql>
+<insert id="insert" parameterType="com.yzz.entity.WxCmsMenuGround">
+insert into wx_cms_menu_ground 
+( wx_cms_menu_ground_id,name,wx_cms_public_account_id,is_enable)
+values (#{wxCmsMenuGroundId,jdbcType=INTEGER},
+#{name,jdbcType=VARCHAR},
+#{wxCmsPublicAccountId,jdbcType=VARCHAR},
+#{isEnable,jdbcType=INTEGER}) 
+</insert>
+
+<delete id="deleteBatch" parameterType="java.util.List">
+delete
+from wx_cms_menu_ground 
+where wx_cms_menu_ground_id in 
+<foreach collection="list" item="item" open="(" separator="," close=")"> 
+ #{item} 
+ </foreach>
+</delete>
+
+<delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+delete
+from wx_cms_menu_ground 
+where wx_cms_menu_ground_id = #{wxCmsMenuGroundId,jdbcType=INTEGER}
+</delete>
+
+<update id="updateByPrimaryKey" parameterType="com.yzz.entity.WxCmsMenuGround">
+update wx_cms_menu_ground set 
+name = #{name,jdbcType=VARCHAR},
+wx_cms_public_account_id = #{wxCmsPublicAccountId,jdbcType=VARCHAR},
+is_enable = #{isEnable,jdbcType=INTEGER}
+ 
+where wx_cms_menu_ground_id = #{wxCmsMenuGroundId,jdbcType=INTEGER}
+</update>
+
+<update id="updateByPrimaryKeySelective" parameterType="com.yzz.entity.WxCmsMenuGround">
+update wx_cms_menu_ground <set> 
+<if test="name != null">
+ name = #{name,jdbcType=VARCHAR},
+</if>
+<if test="wxCmsPublicAccountId != null">
+ wx_cms_public_account_id = #{wxCmsPublicAccountId,jdbcType=VARCHAR},
+</if>
+<if test="isEnable != null">
+ is_enable = #{isEnable,jdbcType=INTEGER},
+</if>
+</set>
+ 
+where wx_cms_menu_ground_id = #{wxCmsMenuGroundId,jdbcType=INTEGER}
+</update>
+
+<select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+select
+<include refid="Base_Column_List" />
+from wx_cms_menu_ground 
+where wx_cms_menu_ground_id = #{wxCmsMenuGroundId,jdbcType=INTEGER}
+</select>
+
+<select id="selectByEntityAndPage" resultMap="BaseResultMap" >
+select
+<include refid="Base_Column_List" />
+from wx_cms_menu_ground 
+<if test="entity != null">
+<where>
+ <if test="entity.wxCmsMenuGroundId != null">
+and wx_cms_menu_ground_id = #{entity.wxCmsMenuGroundId,jdbcType=INTEGER}
+</if>
+<if test="entity.name != null">
+and name = #{entity.name,jdbcType=VARCHAR}
+</if>
+<if test="entity.wxCmsPublicAccountId != null">
+and wx_cms_public_account_id = #{entity.wxCmsPublicAccountId,jdbcType=VARCHAR}
+</if>
+<if test="entity.isEnable != null">
+and is_enable = #{entity.isEnable,jdbcType=INTEGER}
+</if>
+</where>
+</if>
+<if test="page != null">
+<if test="page.orderField != null">
+order by #{page.orderField,jdbcType=VARCHAR} #{page.sort,jdbcType=VARCHAR}
+</if>
+<if test="page.start != null">
+limit #{page.start,jdbcType=INTEGER}, #{page.pageSize,jdbcType=INTEGER}
+</if>
+</if>
+</select>
+
+<select id="countByEntity" resultType="java.lang.Integer" >
+select count(*) from wx_cms_menu_ground 
+<if test="entity != null">
+<where>
+ <if test="entity.wxCmsMenuGroundId != null">
+and wx_cms_menu_ground_id = #{entity.wxCmsMenuGroundId,jdbcType=INTEGER}
+</if>
+<if test="entity.name != null">
+and name = #{entity.name,jdbcType=VARCHAR}
+</if>
+<if test="entity.wxCmsPublicAccountId != null">
+and wx_cms_public_account_id = #{entity.wxCmsPublicAccountId,jdbcType=VARCHAR}
+</if>
+<if test="entity.isEnable != null">
+and is_enable = #{entity.isEnable,jdbcType=INTEGER}
+</if>
+</where>
+</if>
+</select>
+
+</mapper>

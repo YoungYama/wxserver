@@ -1,25 +1,18 @@
 package com.yzz.entity; 
 
-import javax.persistence.Entity; 
-import javax.persistence.Id; 
-import javax.persistence.Table; 
-
 /** 
 * 
-* @description: sys_user表SysUser实体类 
+* @description: sys_user表的实体类SysUser 
 * 
 * @author 杨志钊 
-* @date 2017-04-07 18:43:38 
-*/
+* @date 2017-04-17 18:20:30 
+*/ 
 
-@Entity 
-@Table(name = "sys_user") 
-public class SysUser { 
+public class SysUser {
 
-	@Id 
- 	private String sysUserId;//系统用户编号
+	private String sysUserId;//系统用户编号
 
-	private String wxPublicAccountId;//所属公账号ID
+	private String wxCmsPublicAccountId;//所属公众号ID
 
 	private String sysUserName;//系统用户名
 
@@ -43,12 +36,12 @@ public class SysUser {
  		this.sysUserId = sysUserId == null ? null : sysUserId.trim(); 
 	} 
 
-	public String getWxPublicAccountId() { 
-		return wxPublicAccountId; 
+	public String getWxCmsPublicAccountId() { 
+		return wxCmsPublicAccountId; 
 	} 
 
-	public void setWxPublicAccountId(String wxPublicAccountId) { 
- 		this.wxPublicAccountId = wxPublicAccountId == null ? null : wxPublicAccountId.trim(); 
+	public void setWxCmsPublicAccountId(String wxCmsPublicAccountId) { 
+ 		this.wxCmsPublicAccountId = wxCmsPublicAccountId == null ? null : wxCmsPublicAccountId.trim(); 
 	} 
 
 	public String getSysUserName() { 
@@ -106,5 +99,6 @@ public class SysUser {
 	public void setSysUserRole(Integer sysUserRole) { 
  		this.sysUserRole = sysUserRole; 
 	} 
+
  
  } 

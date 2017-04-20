@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.yzz.dao.SysLogTypeDao">
+<resultMap id="BaseResultMap" type="com.yzz.entity.SysLogType">
+<id column="sys_log_type_id" property="sysLogTypeId" jdbcType="INTEGER" />
+<result column="name" property="name" jdbcType="VARCHAR" />
+</resultMap>
+<sql id="Base_Column_List">
+sys_log_type_id,name
+</sql>
+<insert id="insert" parameterType="com.yzz.entity.SysLogType">
+insert into sys_log_type 
+( sys_log_type_id,name)
+values (#{sysLogTypeId,jdbcType=INTEGER},
+#{name,jdbcType=VARCHAR}) 
+</insert>
+
+<delete id="deleteBatch" parameterType="java.util.List">
+delete
+from sys_log_type 
+where sys_log_type_id in 
+<foreach collection="list" item="item" open="(" separator="," close=")"> 
+ #{item} 
+ </foreach>
+</delete>
+
+<delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+delete
+from sys_log_type 
+where sys_log_type_id = #{sysLogTypeId,jdbcType=INTEGER}
+</delete>
+
+<update id="updateByPrimaryKey" parameterType="com.yzz.entity.SysLogType">
+update sys_log_type set 
+name = #{name,jdbcType=VARCHAR}
+ 
+where sys_log_type_id = #{sysLogTypeId,jdbcType=INTEGER}
+</update>
+
+<update id="updateByPrimaryKeySelective" parameterType="com.yzz.entity.SysLogType">
+update sys_log_type <set> 
+<if test="name != null">
+ name = #{name,jdbcType=VARCHAR},
+</if>
+</set>
+ 
+where sys_log_type_id = #{sysLogTypeId,jdbcType=INTEGER}
+</update>
+
+<select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+select
+<include refid="Base_Column_List" />
+from sys_log_type 
+where sys_log_type_id = #{sysLogTypeId,jdbcType=INTEGER}
+</select>
+
+<select id="selectByEntityAndPage" resultMap="BaseResultMap" >
+select
+<include refid="Base_Column_List" />
+from sys_log_type 
+<if test="entity != null">
+<where>
+ <if test="entity.sysLogTypeId != null">
+and sys_log_type_id = #{entity.sysLogTypeId,jdbcType=INTEGER}
+</if>
+<if test="entity.name != null">
+and name = #{entity.name,jdbcType=VARCHAR}
+</if>
+</where>
+</if>
+<if test="page != null">
+<if test="page.orderField != null">
+order by #{page.orderField,jdbcType=VARCHAR} #{page.sort,jdbcType=VARCHAR}
+</if>
+<if test="page.start != null">
+limit #{page.start,jdbcType=INTEGER}, #{page.pageSize,jdbcType=INTEGER}
+</if>
+</if>
+</select>
+
+<select id="countByEntity" resultType="java.lang.Integer" >
+select count(*) from sys_log_type 
+<if test="entity != null">
+<where>
+ <if test="entity.sysLogTypeId != null">
+and sys_log_type_id = #{entity.sysLogTypeId,jdbcType=INTEGER}
+</if>
+<if test="entity.name != null">
+and name = #{entity.name,jdbcType=VARCHAR}
+</if>
+</where>
+</if>
+</select>
+
+</mapper>
