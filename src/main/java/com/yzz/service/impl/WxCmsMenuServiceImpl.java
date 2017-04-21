@@ -21,7 +21,7 @@ import com.yzz.util.IdGenerator;
 * @description: WxCmsMenuService接口的实现类WxCmsMenuServiceImpl 
 * 
 * @author 杨志钊 
-* @date 2017-04-17 17:37:14 
+* @date 2017-04-21 10:07:02 
 */ 
 @Service
 public class WxCmsMenuServiceImpl implements WxCmsMenuService {

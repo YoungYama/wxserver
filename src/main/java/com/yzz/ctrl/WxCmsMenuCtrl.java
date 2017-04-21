@@ -19,7 +19,7 @@ import com.yzz.service.WxCmsMenuService;
 * @description: 实体类WxCmsMenu的控制器WxCmsMenuCtrl 
 * 
 * @author 杨志钊 
-* @date 2017-04-17 16:54:06 
+* @date 2017-04-21 10:07:02 
 */ 
 @Controller
 @RequestMapping("/wxCmsMenu")

@@ -11,7 +11,7 @@ import com.yzz.entity.WxCmsMenu;
 * @description: 实体类WxCmsMenu的service接口 
 * 
 * @author 杨志钊 
-* @date 2017-04-17 16:54:06 
+* @date 2017-04-21 10:07:02 
 */ 
 public interface WxCmsMenuService {
 

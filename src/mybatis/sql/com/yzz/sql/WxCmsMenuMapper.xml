@@ -11,14 +11,14 @@
 <result column="url" property="url" jdbcType="LONGVARCHAR" />
 <result column="sort" property="sort" jdbcType="INTEGER" />
 <result column="parent_id" property="parentId" jdbcType="VARCHAR" />
-<result column="ground_id" property="groundId" jdbcType="INTEGER" />
+<result column="wx_cms_menu_group_id" property="wxCmsMenuGroupId" jdbcType="INTEGER" />
 </resultMap>
 <sql id="Base_Column_List">
-wx_cms_menu_id,wx_cms_public_account_id,media_id,type,name,key,url,sort,parent_id,ground_id
+wx_cms_menu_id,wx_cms_public_account_id,media_id,type,name,key,url,sort,parent_id,wx_cms_menu_group_id
 </sql>
 <insert id="insert" parameterType="com.yzz.entity.WxCmsMenu">
 insert into wx_cms_menu 
-( wx_cms_menu_id,wx_cms_public_account_id,media_id,type,name,key,url,sort,parent_id,ground_id)
+( wx_cms_menu_id,wx_cms_public_account_id,media_id,type,name,key,url,sort,parent_id,wx_cms_menu_group_id)
 values (#{wxCmsMenuId,jdbcType=VARCHAR},
 #{wxCmsPublicAccountId,jdbcType=VARCHAR},
 #{mediaId,jdbcType=VARCHAR},
@@ -28,7 +28,7 @@ values (#{wxCmsMenuId,jdbcType=VARCHAR},
 #{url,jdbcType=LONGVARCHAR},
 #{sort,jdbcType=INTEGER},
 #{parentId,jdbcType=VARCHAR},
-#{groundId,jdbcType=INTEGER}) 
+#{wxCmsMenuGroupId,jdbcType=INTEGER}) 
 </insert>
 
 <delete id="deleteBatch" parameterType="java.util.List">
@@ -56,7 +56,7 @@ key = #{key,jdbcType=VARCHAR},
 url = #{url,jdbcType=LONGVARCHAR},
 sort = #{sort,jdbcType=INTEGER},
 parent_id = #{parentId,jdbcType=VARCHAR},
-ground_id = #{groundId,jdbcType=INTEGER}
+wx_cms_menu_group_id = #{wxCmsMenuGroupId,jdbcType=INTEGER}
  
 where wx_cms_menu_id = #{wxCmsMenuId,jdbcType=VARCHAR}
 </update>
@@ -87,8 +87,8 @@ update wx_cms_menu <set>
 <if test="parentId != null">
  parent_id = #{parentId,jdbcType=VARCHAR},
 </if>
-<if test="groundId != null">
- ground_id = #{groundId,jdbcType=INTEGER},
+<if test="wxCmsMenuGroupId != null">
+ wx_cms_menu_group_id = #{wxCmsMenuGroupId,jdbcType=INTEGER},
 </if>
 </set>
  
@@ -135,8 +135,8 @@ and sort = #{entity.sort,jdbcType=INTEGER}
 <if test="entity.parentId != null">
 and parent_id = #{entity.parentId,jdbcType=VARCHAR}
 </if>
-<if test="entity.groundId != null">
-and ground_id = #{entity.groundId,jdbcType=INTEGER}
+<if test="entity.wxCmsMenuGroupId != null">
+and wx_cms_menu_group_id = #{entity.wxCmsMenuGroupId,jdbcType=INTEGER}
 </if>
 </where>
 </if>
@@ -181,8 +181,8 @@ and sort = #{entity.sort,jdbcType=INTEGER}
 <if test="entity.parentId != null">
 and parent_id = #{entity.parentId,jdbcType=VARCHAR}
 </if>
-<if test="entity.groundId != null">
-and ground_id = #{entity.groundId,jdbcType=INTEGER}
+<if test="entity.wxCmsMenuGroupId != null">
+and wx_cms_menu_group_id = #{entity.wxCmsMenuGroupId,jdbcType=INTEGER}
 </if>
 </where>
 </if>

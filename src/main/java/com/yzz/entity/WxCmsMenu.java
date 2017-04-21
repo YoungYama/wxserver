@@ -5,7 +5,7 @@ package com.yzz.entity;
 * @description: wx_cms_menu表的实体类WxCmsMenu 
 * 
 * @author 杨志钊 
-* @date 2017-04-17 18:20:30 
+* @date 2017-04-21 10:07:02 
 */ 
 
 public class WxCmsMenu {
@@ -28,7 +28,7 @@ public class WxCmsMenu {
 
 	private String parentId;//菜单级别，一级菜单值为0，二级菜单值为其父级菜单的ID
 
-	private Integer groundId;//组别
+	private Integer wxCmsMenuGroupId;//组别
 
 	public String getWxCmsMenuId() { 
 		return wxCmsMenuId; 
@@ -102,12 +102,12 @@ public class WxCmsMenu {
  		this.parentId = parentId == null ? null : parentId.trim(); 
 	} 
 
-	public Integer getGroundId() { 
-		return groundId; 
+	public Integer getWxCmsMenuGroupId() { 
+		return wxCmsMenuGroupId; 
 	} 
 
-	public void setGroundId(Integer groundId) { 
- 		this.groundId = groundId; 
+	public void setWxCmsMenuGroupId(Integer wxCmsMenuGroupId) { 
+ 		this.wxCmsMenuGroupId = wxCmsMenuGroupId; 
 	} 
 
  

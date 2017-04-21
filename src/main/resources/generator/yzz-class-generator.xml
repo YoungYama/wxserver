@@ -31,7 +31,7 @@
 	<table tableName="sys_log" />
 	<table tableName="sys_log_type" />
 	<table tableName="wx_cms_menu" />
-	<table tableName="wx_cms_menu_ground" />
+	<table tableName="wx_cms_menu_group" />
 	<table tableName="wx_cms_news" />
 	<table tableName="wx_cms_public_account" />
 	<table tableName="sys_model" /> -->
