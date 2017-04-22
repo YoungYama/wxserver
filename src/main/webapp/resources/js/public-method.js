@@ -23,3 +23,25 @@ function databaseOperationByAjax(url, method = 'POST', data = {}){
 		}
 	});
 }
+
+/**
+ * 获取根URI
+ * @returns
+ */
+function getRootPath() {
+	var pathName = window.document.location.pathname;
+	var projectName = pathName.substring(0, pathName.substr(1).indexOf(
+			'/') + 1);
+
+	var rootPath = window.location.protocol + "//"
+			+ window.location.host + projectName;
+
+	return rootPath;
+}
+
+/**
+ * 字符串全部替换
+ */
+String.prototype.replaceAll = function(oldString, newString) {
+	return this.replace(new RegExp(oldString, "gm"), newString);
+}
