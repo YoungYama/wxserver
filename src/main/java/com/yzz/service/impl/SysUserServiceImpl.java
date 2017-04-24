@@ -5,6 +5,9 @@ import java.util.Arrays;
 import java.util.List;
 
 import javax.annotation.Resource;
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Service;
@@ -53,16 +56,40 @@ public class SysUserServiceImpl implements SysUserService {
 
 	/** 登录 */
 	@Override
-	public ResultData<SysUser> login(SysUser entity, HttpSession session) {
+	public ResultData<SysUser> login(SysUser entity, HttpServletRequest request, HttpServletResponse response,
+			HttpSession session) {
 		ResultData<SysUser> resultData = new ResultData<>();
+		String password = entity.getPassword();
+		entity.setPassword(null);
 		List<SysUser> sysUsers = sysUserDao.selectByEntityAndPage(entity, null);
+
 		if (sysUsers.size() > 0) {
 			SysUser sysUser = sysUsers.get(0);
-			if (entity.getPassword().equals(sysUser.getPassword())) {
+			if (password.equals(sysUser.getPassword())) {
 				resultData.setData(sysUser);
 				resultData.setMsg(UserOperatedState.LOGIN_SUCCESS);
 				session.setAttribute(ConstantUtil.LOGINING_SYS_USER, sysUser);
 			} else {
+				Cookie[] cookies = request.getCookies();
+				String sysUserName = sysUser.getSysUserName();
+				boolean isExist = false;
+				for (Cookie cookie : cookies) {
+					if (sysUserName.equals(cookie.getName())) {
+						isExist = true;
+						String errorCount = String.valueOf(Integer.parseInt(cookie.getValue()) + 1);
+						Cookie coo = new Cookie(sysUserName, errorCount);
+						coo.setPath("/");
+						coo.setMaxAge(60 * 60);//一个小时
+						response.addCookie(coo);
+						break;
+					}
+				}
+				if (!isExist) {
+					Cookie coo = new Cookie(sysUserName, String.valueOf(1));
+					coo.setPath("/");
+					coo.setMaxAge(60 * 60);//一个小时
+					response.addCookie(coo);
+				}
 				resultData.setCode(400);
 				resultData.setMsg(UserOperatedState.LOGIN_PASSWORD_ERROR);
 			}

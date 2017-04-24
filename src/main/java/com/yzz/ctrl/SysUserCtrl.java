@@ -3,6 +3,8 @@ package com.yzz.ctrl;
 import java.util.List;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
@@ -42,11 +44,12 @@ public class SysUserCtrl {
 	}
 
 	/** 系统用户登录 */
-	@RequestMapping(value = "/login", method = RequestMethod.POST)
+	@RequestMapping(value = "/login", method = RequestMethod.GET)
 	@ResponseBody
 	@LogInfo(modelType = "1", logType = "5", operationContent = "用户在电脑端网站上登录了")
-	public ResultData<SysUser> login(SysUser entity, HttpSession session) {
-		ResultData<SysUser> resultData = sysUserService.login(entity, session);
+	public ResultData<SysUser> login(SysUser entity, HttpServletRequest request, HttpServletResponse response,
+			HttpSession session) {
+		ResultData<SysUser> resultData = sysUserService.login(entity, request, response, session);
 
 		return resultData;
 	}
