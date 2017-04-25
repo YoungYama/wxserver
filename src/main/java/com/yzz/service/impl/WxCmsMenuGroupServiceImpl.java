@@ -20,7 +20,7 @@ import com.yzz.util.UserOperatedState;
 * @description: WxCmsMenuGroupService接口的实现类WxCmsMenuGroupServiceImpl 
 * 
 * @author 杨志钊 
-* @date 2017-04-21 10:07:02 
+* @date 2017-04-25 09:27:40 
 */ 
 @Service
 public class WxCmsMenuGroupServiceImpl implements WxCmsMenuGroupService {
@@ -32,18 +32,15 @@ public class WxCmsMenuGroupServiceImpl implements WxCmsMenuGroupService {
 	@Override
 	public ResultData<Void> insertOne(WxCmsMenuGroup entity) {
 		ResultData<Void> resultData = new ResultData<>();
-		try {
-			int rows = wxCmsMenuGroupDao.insert(entity);
-			if (rows < 0) {
-				resultData.setCode(400);
-				resultData.setMsg(UserOperatedState.INSERT_FAILURE);
-			} else {
-				resultData.setMsg(UserOperatedState.INSERT_SUCCESS);
-			}
-		} catch (RuntimeException e) {
+
+		int rows = wxCmsMenuGroupDao.insert(entity);
+		if (rows < 0) {
 			resultData.setCode(400);
-			resultData.setMsg(UserOperatedState.INNER_ERROR);
+			resultData.setMsg(UserOperatedState.INSERT_FAILURE);
+		} else {
+			resultData.setMsg(UserOperatedState.INSERT_SUCCESS);
 		}
+
 		return resultData;
 	}
 
@@ -51,18 +48,15 @@ public class WxCmsMenuGroupServiceImpl implements WxCmsMenuGroupService {
 	@Override
 	public ResultData<Void> deleteOne(Integer wxCmsMenuGroupId) {
 		ResultData<Void> resultData = new ResultData<>();
-		try {
-			int rows = wxCmsMenuGroupDao.deleteByPrimaryKey(wxCmsMenuGroupId);
-			if (rows < 0) {
-				resultData.setCode(400);
-				resultData.setMsg(UserOperatedState.DELETE_FAILURE);
-			} else {
-				resultData.setMsg(UserOperatedState.DELETE_SUCCESS);
-			}
-		} catch (RuntimeException e) {
+
+		int rows = wxCmsMenuGroupDao.deleteByPrimaryKey(wxCmsMenuGroupId);
+		if (rows < 0) {
 			resultData.setCode(400);
-			resultData.setMsg(UserOperatedState.INNER_ERROR);
+			resultData.setMsg(UserOperatedState.DELETE_FAILURE);
+		} else {
+			resultData.setMsg(UserOperatedState.DELETE_SUCCESS);
 		}
+
 		return resultData;
 	}
 
@@ -70,18 +64,15 @@ public class WxCmsMenuGroupServiceImpl implements WxCmsMenuGroupService {
 	@Override
 	public ResultData<Void> deleteBatch(Integer[] wxCmsMenuGroupIds) {
 		ResultData<Void> resultData = new ResultData<>();
-		try {
-			int rows = wxCmsMenuGroupDao.deleteBatch(Arrays.asList(wxCmsMenuGroupIds));
-			if (rows < 0) {
-				resultData.setCode(400);
-				resultData.setMsg(UserOperatedState.DELETE_FAILURE);
-			} else {
-				resultData.setMsg(UserOperatedState.DELETE_SUCCESS);
-			}
-		} catch (RuntimeException e) {
+
+		int rows = wxCmsMenuGroupDao.deleteBatch(Arrays.asList(wxCmsMenuGroupIds));
+		if (rows < 0) {
 			resultData.setCode(400);
-			resultData.setMsg(UserOperatedState.INNER_ERROR);
+			resultData.setMsg(UserOperatedState.DELETE_FAILURE);
+		} else {
+			resultData.setMsg(UserOperatedState.DELETE_SUCCESS);
 		}
+
 		return resultData;
 	}
 
@@ -89,18 +80,15 @@ public class WxCmsMenuGroupServiceImpl implements WxCmsMenuGroupService {
 	@Override
 	public ResultData<Void> updateOne(WxCmsMenuGroup entity) {
 		ResultData<Void> resultData = new ResultData<>();
-		try {
-			int rows = wxCmsMenuGroupDao.updateByPrimaryKey(entity);
-			if (rows < 0) {
-				resultData.setCode(400);
-				resultData.setMsg(UserOperatedState.UPDATE_FAILURE);
-			} else {
-				resultData.setMsg(UserOperatedState.UPDATE_SUCCESS);
-			}
-		} catch (RuntimeException e) {
+
+		int rows = wxCmsMenuGroupDao.updateByPrimaryKey(entity);
+		if (rows < 0) {
 			resultData.setCode(400);
-			resultData.setMsg(UserOperatedState.INNER_ERROR);
+			resultData.setMsg(UserOperatedState.UPDATE_FAILURE);
+		} else {
+			resultData.setMsg(UserOperatedState.UPDATE_SUCCESS);
 		}
+
 		return resultData;
 	}
 
@@ -108,18 +96,15 @@ public class WxCmsMenuGroupServiceImpl implements WxCmsMenuGroupService {
 	@Override
 	public ResultData<Void> updateOneSelective(WxCmsMenuGroup entity) {
 		ResultData<Void> resultData = new ResultData<>();
-		try {
-			int rows = wxCmsMenuGroupDao.updateByPrimaryKeySelective(entity);
-			if (rows < 0) {
-				resultData.setCode(400);
-				resultData.setMsg(UserOperatedState.UPDATE_FAILURE);
-			} else {
-				resultData.setMsg(UserOperatedState.UPDATE_SUCCESS);
-			}
-		} catch (RuntimeException e) {
+
+		int rows = wxCmsMenuGroupDao.updateByPrimaryKeySelective(entity);
+		if (rows < 0) {
 			resultData.setCode(400);
-			resultData.setMsg(UserOperatedState.INNER_ERROR);
+			resultData.setMsg(UserOperatedState.UPDATE_FAILURE);
+		} else {
+			resultData.setMsg(UserOperatedState.UPDATE_SUCCESS);
 		}
+
 		return resultData;
 	}
 
@@ -127,17 +112,13 @@ public class WxCmsMenuGroupServiceImpl implements WxCmsMenuGroupService {
 	@Override
 	public ResultData<WxCmsMenuGroup> selectOne(Integer wxCmsMenuGroupId) {
 		ResultData<WxCmsMenuGroup> resultData = new ResultData<>();
-		try {
-			WxCmsMenuGroup wxCmsMenuGroup = wxCmsMenuGroupDao.selectByPrimaryKey(wxCmsMenuGroupId);
-			if (wxCmsMenuGroup == null) {
-				resultData.setMsg(UserOperatedState.NO_DATA);
-			} else {
-				resultData.setMsg(UserOperatedState.SELECT_SUCCESS);
-				resultData.setData(wxCmsMenuGroup);
-			}
-		} catch (RuntimeException e) {
-			resultData.setCode(400);
-			resultData.setMsg(UserOperatedState.INNER_ERROR);
+
+		WxCmsMenuGroup wxCmsMenuGroup = wxCmsMenuGroupDao.selectByPrimaryKey(wxCmsMenuGroupId);
+		if (wxCmsMenuGroup == null) {
+			resultData.setMsg(UserOperatedState.NO_DATA);
+		} else {
+			resultData.setMsg(UserOperatedState.SELECT_SUCCESS);
+			resultData.setData(wxCmsMenuGroup);
 		}
 
 		return resultData;
@@ -147,27 +128,22 @@ public class WxCmsMenuGroupServiceImpl implements WxCmsMenuGroupService {
 	@Override
 	public ResultData<List<WxCmsMenuGroup>> selectList(WxCmsMenuGroup entity, Page page) {
 		ResultData<List<WxCmsMenuGroup>> resultData = new ResultData<>();
-		try {
-			List<WxCmsMenuGroup> wxCmsMenuGroups = new ArrayList<>();
-			int count = wxCmsMenuGroupDao.countByEntity(entity);
-			if (count > 0) {// 总记录大于则有数据，可以进一步分页查询
-				page.setTotalRecord(count);
-				wxCmsMenuGroups = wxCmsMenuGroupDao.selectByEntityAndPage(entity, page);
 
-				if (wxCmsMenuGroups.size() > 0) {
-					resultData.setMsg(UserOperatedState.SELECT_SUCCESS);
-				} else {
-					resultData.setMsg(UserOperatedState.NO_DATA);
-				}
-				
-				resultData.setData(wxCmsMenuGroups, page);
+		List<WxCmsMenuGroup> wxCmsMenuGroups = new ArrayList<>();
+		int count = wxCmsMenuGroupDao.countByEntity(entity);
+		if (count > 0) {// 总记录大于则有数据，可以进一步分页查询
+			page.setTotalRecord(count);
+			wxCmsMenuGroups = wxCmsMenuGroupDao.selectByEntityAndPage(entity, page);
+
+			if (wxCmsMenuGroups.size() > 0) {
+				resultData.setMsg(UserOperatedState.SELECT_SUCCESS);
 			} else {
 				resultData.setMsg(UserOperatedState.NO_DATA);
 			}
-
-		} catch (RuntimeException e) {
-			resultData.setCode(400);
-			resultData.setMsg(UserOperatedState.INNER_ERROR);
+			
+			resultData.setData(wxCmsMenuGroups, page);
+		} else {
+			resultData.setMsg(UserOperatedState.NO_DATA);
 		}
 
 		return resultData;
@@ -177,19 +153,14 @@ public class WxCmsMenuGroupServiceImpl implements WxCmsMenuGroupService {
 	@Override
 	public ResultData<List<WxCmsMenuGroup>> selectAll() {
 		ResultData<List<WxCmsMenuGroup>> resultData = new ResultData<>();
-		try {
-			List<WxCmsMenuGroup> wxCmsMenuGroups = wxCmsMenuGroupDao.selectByEntityAndPage(null, null);
 
-			if (wxCmsMenuGroups.size() > 0) {
-				resultData.setMsg(UserOperatedState.SELECT_SUCCESS);
-				resultData.setData(wxCmsMenuGroups);
-			} else {
-				resultData.setMsg(UserOperatedState.NO_DATA);
-			}
+		List<WxCmsMenuGroup> wxCmsMenuGroups = wxCmsMenuGroupDao.selectByEntityAndPage(null, null);
 
-		} catch (RuntimeException e) {
-			resultData.setCode(400);
-			resultData.setMsg(UserOperatedState.INNER_ERROR);
+		if (wxCmsMenuGroups.size() > 0) {
+			resultData.setMsg(UserOperatedState.SELECT_SUCCESS);
+			resultData.setData(wxCmsMenuGroups);
+		} else {
+			resultData.setMsg(UserOperatedState.NO_DATA);
 		}
 
 		return resultData;

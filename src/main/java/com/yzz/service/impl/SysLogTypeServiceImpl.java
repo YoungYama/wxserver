@@ -20,7 +20,7 @@ import com.yzz.util.UserOperatedState;
 * @description: SysLogTypeService接口的实现类SysLogTypeServiceImpl 
 * 
 * @author 杨志钊 
-* @date 2017-04-17 17:37:14 
+* @date 2017-04-25 09:27:40 
 */ 
 @Service
 public class SysLogTypeServiceImpl implements SysLogTypeService {
@@ -32,18 +32,15 @@ public class SysLogTypeServiceImpl implements SysLogTypeService {
 	@Override
 	public ResultData<Void> insertOne(SysLogType entity) {
 		ResultData<Void> resultData = new ResultData<>();
-		try {
-			int rows = sysLogTypeDao.insert(entity);
-			if (rows < 0) {
-				resultData.setCode(400);
-				resultData.setMsg(UserOperatedState.INSERT_FAILURE);
-			} else {
-				resultData.setMsg(UserOperatedState.INSERT_SUCCESS);
-			}
-		} catch (RuntimeException e) {
+
+		int rows = sysLogTypeDao.insert(entity);
+		if (rows < 0) {
 			resultData.setCode(400);
-			resultData.setMsg(UserOperatedState.INNER_ERROR);
+			resultData.setMsg(UserOperatedState.INSERT_FAILURE);
+		} else {
+			resultData.setMsg(UserOperatedState.INSERT_SUCCESS);
 		}
+
 		return resultData;
 	}
 
@@ -51,18 +48,15 @@ public class SysLogTypeServiceImpl implements SysLogTypeService {
 	@Override
 	public ResultData<Void> deleteOne(Integer sysLogTypeId) {
 		ResultData<Void> resultData = new ResultData<>();
-		try {
-			int rows = sysLogTypeDao.deleteByPrimaryKey(sysLogTypeId);
-			if (rows < 0) {
-				resultData.setCode(400);
-				resultData.setMsg(UserOperatedState.DELETE_FAILURE);
-			} else {
-				resultData.setMsg(UserOperatedState.DELETE_SUCCESS);
-			}
-		} catch (RuntimeException e) {
+
+		int rows = sysLogTypeDao.deleteByPrimaryKey(sysLogTypeId);
+		if (rows < 0) {
 			resultData.setCode(400);
-			resultData.setMsg(UserOperatedState.INNER_ERROR);
+			resultData.setMsg(UserOperatedState.DELETE_FAILURE);
+		} else {
+			resultData.setMsg(UserOperatedState.DELETE_SUCCESS);
 		}
+
 		return resultData;
 	}
 
@@ -70,18 +64,15 @@ public class SysLogTypeServiceImpl implements SysLogTypeService {
 	@Override
 	public ResultData<Void> deleteBatch(Integer[] sysLogTypeIds) {
 		ResultData<Void> resultData = new ResultData<>();
-		try {
-			int rows = sysLogTypeDao.deleteBatch(Arrays.asList(sysLogTypeIds));
-			if (rows < 0) {
-				resultData.setCode(400);
-				resultData.setMsg(UserOperatedState.DELETE_FAILURE);
-			} else {
-				resultData.setMsg(UserOperatedState.DELETE_SUCCESS);
-			}
-		} catch (RuntimeException e) {
+
+		int rows = sysLogTypeDao.deleteBatch(Arrays.asList(sysLogTypeIds));
+		if (rows < 0) {
 			resultData.setCode(400);
-			resultData.setMsg(UserOperatedState.INNER_ERROR);
+			resultData.setMsg(UserOperatedState.DELETE_FAILURE);
+		} else {
+			resultData.setMsg(UserOperatedState.DELETE_SUCCESS);
 		}
+
 		return resultData;
 	}
 
@@ -89,18 +80,15 @@ public class SysLogTypeServiceImpl implements SysLogTypeService {
 	@Override
 	public ResultData<Void> updateOne(SysLogType entity) {
 		ResultData<Void> resultData = new ResultData<>();
-		try {
-			int rows = sysLogTypeDao.updateByPrimaryKey(entity);
-			if (rows < 0) {
-				resultData.setCode(400);
-				resultData.setMsg(UserOperatedState.UPDATE_FAILURE);
-			} else {
-				resultData.setMsg(UserOperatedState.UPDATE_SUCCESS);
-			}
-		} catch (RuntimeException e) {
+
+		int rows = sysLogTypeDao.updateByPrimaryKey(entity);
+		if (rows < 0) {
 			resultData.setCode(400);
-			resultData.setMsg(UserOperatedState.INNER_ERROR);
+			resultData.setMsg(UserOperatedState.UPDATE_FAILURE);
+		} else {
+			resultData.setMsg(UserOperatedState.UPDATE_SUCCESS);
 		}
+
 		return resultData;
 	}
 
@@ -108,18 +96,15 @@ public class SysLogTypeServiceImpl implements SysLogTypeService {
 	@Override
 	public ResultData<Void> updateOneSelective(SysLogType entity) {
 		ResultData<Void> resultData = new ResultData<>();
-		try {
-			int rows = sysLogTypeDao.updateByPrimaryKeySelective(entity);
-			if (rows < 0) {
-				resultData.setCode(400);
-				resultData.setMsg(UserOperatedState.UPDATE_FAILURE);
-			} else {
-				resultData.setMsg(UserOperatedState.UPDATE_SUCCESS);
-			}
-		} catch (RuntimeException e) {
+
+		int rows = sysLogTypeDao.updateByPrimaryKeySelective(entity);
+		if (rows < 0) {
 			resultData.setCode(400);
-			resultData.setMsg(UserOperatedState.INNER_ERROR);
+			resultData.setMsg(UserOperatedState.UPDATE_FAILURE);
+		} else {
+			resultData.setMsg(UserOperatedState.UPDATE_SUCCESS);
 		}
+
 		return resultData;
 	}
 
@@ -127,17 +112,13 @@ public class SysLogTypeServiceImpl implements SysLogTypeService {
 	@Override
 	public ResultData<SysLogType> selectOne(Integer sysLogTypeId) {
 		ResultData<SysLogType> resultData = new ResultData<>();
-		try {
-			SysLogType sysLogType = sysLogTypeDao.selectByPrimaryKey(sysLogTypeId);
-			if (sysLogType == null) {
-				resultData.setMsg(UserOperatedState.NO_DATA);
-			} else {
-				resultData.setMsg(UserOperatedState.SELECT_SUCCESS);
-				resultData.setData(sysLogType);
-			}
-		} catch (RuntimeException e) {
-			resultData.setCode(400);
-			resultData.setMsg(UserOperatedState.INNER_ERROR);
+
+		SysLogType sysLogType = sysLogTypeDao.selectByPrimaryKey(sysLogTypeId);
+		if (sysLogType == null) {
+			resultData.setMsg(UserOperatedState.NO_DATA);
+		} else {
+			resultData.setMsg(UserOperatedState.SELECT_SUCCESS);
+			resultData.setData(sysLogType);
 		}
 
 		return resultData;
@@ -147,27 +128,22 @@ public class SysLogTypeServiceImpl implements SysLogTypeService {
 	@Override
 	public ResultData<List<SysLogType>> selectList(SysLogType entity, Page page) {
 		ResultData<List<SysLogType>> resultData = new ResultData<>();
-		try {
-			List<SysLogType> sysLogTypes = new ArrayList<>();
-			int count = sysLogTypeDao.countByEntity(entity);
-			if (count > 0) {// 总记录大于则有数据，可以进一步分页查询
-				page.setTotalRecord(count);
-				sysLogTypes = sysLogTypeDao.selectByEntityAndPage(entity, page);
 
-				if (sysLogTypes.size() > 0) {
-					resultData.setMsg(UserOperatedState.SELECT_SUCCESS);
-				} else {
-					resultData.setMsg(UserOperatedState.NO_DATA);
-				}
-				
-				resultData.setData(sysLogTypes, page);
+		List<SysLogType> sysLogTypes = new ArrayList<>();
+		int count = sysLogTypeDao.countByEntity(entity);
+		if (count > 0) {// 总记录大于则有数据，可以进一步分页查询
+			page.setTotalRecord(count);
+			sysLogTypes = sysLogTypeDao.selectByEntityAndPage(entity, page);
+
+			if (sysLogTypes.size() > 0) {
+				resultData.setMsg(UserOperatedState.SELECT_SUCCESS);
 			} else {
 				resultData.setMsg(UserOperatedState.NO_DATA);
 			}
-
-		} catch (RuntimeException e) {
-			resultData.setCode(400);
-			resultData.setMsg(UserOperatedState.INNER_ERROR);
+			
+			resultData.setData(sysLogTypes, page);
+		} else {
+			resultData.setMsg(UserOperatedState.NO_DATA);
 		}
 
 		return resultData;
@@ -177,19 +153,14 @@ public class SysLogTypeServiceImpl implements SysLogTypeService {
 	@Override
 	public ResultData<List<SysLogType>> selectAll() {
 		ResultData<List<SysLogType>> resultData = new ResultData<>();
-		try {
-			List<SysLogType> sysLogTypes = sysLogTypeDao.selectByEntityAndPage(null, null);
 
-			if (sysLogTypes.size() > 0) {
-				resultData.setMsg(UserOperatedState.SELECT_SUCCESS);
-				resultData.setData(sysLogTypes);
-			} else {
-				resultData.setMsg(UserOperatedState.NO_DATA);
-			}
+		List<SysLogType> sysLogTypes = sysLogTypeDao.selectByEntityAndPage(null, null);
 
-		} catch (RuntimeException e) {
-			resultData.setCode(400);
-			resultData.setMsg(UserOperatedState.INNER_ERROR);
+		if (sysLogTypes.size() > 0) {
+			resultData.setMsg(UserOperatedState.SELECT_SUCCESS);
+			resultData.setData(sysLogTypes);
+		} else {
+			resultData.setMsg(UserOperatedState.NO_DATA);
 		}
 
 		return resultData;

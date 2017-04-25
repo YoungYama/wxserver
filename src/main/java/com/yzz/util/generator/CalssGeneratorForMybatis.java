@@ -24,17 +24,17 @@ public class CalssGeneratorForMybatis {
 
 		CalssGeneratorForMybatis.setTableAndClassDatas(map);
 		
-		CalssGeneratorForMybatis.generateEntityClass();
-		
-		CalssGeneratorForMybatis.generateDaoClass();
-		
-		CalssGeneratorForMybatis.generateMapperXml();
-		
-		CalssGeneratorForMybatis.generateServiceClass();
+//		CalssGeneratorForMybatis.generateEntityClass();
+//		
+//		CalssGeneratorForMybatis.generateDaoClass();
+//		
+//		CalssGeneratorForMybatis.generateMapperXml();
+//		
+//		CalssGeneratorForMybatis.generateServiceClass();
 		
 		CalssGeneratorForMybatis.generateServiceImplClass();
 		
-		CalssGeneratorForMybatis.generateCtrlClass();
+//		CalssGeneratorForMybatis.generateCtrlClass();
 	}
 
 	private static String projectPath = System.getProperty("user.dir");
@@ -378,108 +378,89 @@ public class CalssGeneratorForMybatis {
 					"	@Override\n"+
 					"	public ResultData<Void> insertOne(" + entityClassName + " entity) {\n"+
 					"		ResultData<Void> resultData = new ResultData<>();\n"+
-					"		try {\n"+
-					"			entity.set" + entityClassName + "Id(IdGenerator.generatesId());\n"+
-					"			int rows = " + daoClassVarName + ".insert(entity);\n"+
-					"			if (rows < 0) {\n"+
-					"				resultData.setCode(400);\n"+
-					"				resultData.setMsg(UserOperatedState.INSERT_FAILURE);\n"+
-					"			} else {\n"+
-					"				resultData.setMsg(UserOperatedState.INSERT_SUCCESS);\n"+
-					"			}\n"+
-					"		} catch (RuntimeException e) {\n"+
+					"\n"+
+					"		entity.set" + entityClassName + "Id(IdGenerator.generatesId());\n"+
+					"		int rows = " + daoClassVarName + ".insert(entity);\n"+
+					"		if (rows < 0) {\n"+
 					"			resultData.setCode(400);\n"+
-					"			resultData.setMsg(UserOperatedState.INNER_ERROR);\n"+
+					"			resultData.setMsg(UserOperatedState.INSERT_FAILURE);\n"+
+					"		} else {\n"+
+					"			resultData.setMsg(UserOperatedState.INSERT_SUCCESS);\n"+
 					"		}\n"+
+					"\n"+
 					"		return resultData;\n"+
 					"	}\n"+
 					"\n	/**根据实体ID单个实体删除*/\n"+
 					"	@Override\n"+
 					"	public ResultData<Void> deleteOne(" + classIdPropertyType + " " + entityIdName + ") {\n"+
 					"		ResultData<Void> resultData = new ResultData<>();\n"+
-					"		try {\n"+
-					"			int rows = " + daoClassVarName + ".deleteByPrimaryKey(" + entityIdName + ");\n"+
-					"			if (rows < 0) {\n"+
-					"				resultData.setCode(400);\n"+
-					"				resultData.setMsg(UserOperatedState.DELETE_FAILURE);\n"+
-					"			} else {\n"+
-					"				resultData.setMsg(UserOperatedState.DELETE_SUCCESS);\n"+
-					"			}\n"+
-					"		} catch (RuntimeException e) {\n"+
+					"\n"+
+					"		int rows = " + daoClassVarName + ".deleteByPrimaryKey(" + entityIdName + ");\n"+
+					"		if (rows < 0) {\n"+
 					"			resultData.setCode(400);\n"+
-					"			resultData.setMsg(UserOperatedState.INNER_ERROR);\n"+
+					"			resultData.setMsg(UserOperatedState.DELETE_FAILURE);\n"+
+					"		} else {\n"+
+					"			resultData.setMsg(UserOperatedState.DELETE_SUCCESS);\n"+
 					"		}\n"+
+					"\n"+
 					"		return resultData;\n"+
 					"	}\n"+
 					"\n	/**根据实体ID数组批量删除实体*/\n"+
 					"	@Override\n"+
 					"	public ResultData<Void> deleteBatch(" + classIdPropertyType + "[] " + entityIdName + "s) {\n"+
 					"		ResultData<Void> resultData = new ResultData<>();\n"+
-					"		try {\n"+
-					"			int rows = " + daoClassVarName + ".deleteBatch(Arrays.asList(" + entityIdName + "s));\n"+
-					"			if (rows < 0) {\n"+
-					"				resultData.setCode(400);\n"+
-					"				resultData.setMsg(UserOperatedState.DELETE_FAILURE);\n"+
-					"			} else {\n"+
-					"				resultData.setMsg(UserOperatedState.DELETE_SUCCESS);\n"+
-					"			}\n"+
-					"		} catch (RuntimeException e) {\n"+
+					"\n"+
+					"		int rows = " + daoClassVarName + ".deleteBatch(Arrays.asList(" + entityIdName + "s));\n"+
+					"		if (rows < 0) {\n"+
 					"			resultData.setCode(400);\n"+
-					"			resultData.setMsg(UserOperatedState.INNER_ERROR);\n"+
+					"			resultData.setMsg(UserOperatedState.DELETE_FAILURE);\n"+
+					"		} else {\n"+
+					"			resultData.setMsg(UserOperatedState.DELETE_SUCCESS);\n"+
 					"		}\n"+
+					"\n"+
 					"		return resultData;\n"+
 					"	}\n"+
 					"\n	/**单个实体全部字段更新*/\n"+
 					"	@Override\n"+
 					"	public ResultData<Void> updateOne(" + entityClassName + " entity) {\n"+
 					"		ResultData<Void> resultData = new ResultData<>();\n"+
-					"		try {\n"+
-					"			int rows = " + daoClassVarName + ".updateByPrimaryKey(entity);\n"+
-					"			if (rows < 0) {\n"+
-					"				resultData.setCode(400);\n"+
-					"				resultData.setMsg(UserOperatedState.UPDATE_FAILURE);\n"+
-					"			} else {\n"+
-					"				resultData.setMsg(UserOperatedState.UPDATE_SUCCESS);\n"+
-					"			}\n"+
-					"		} catch (RuntimeException e) {\n"+
+					"\n"+
+					"		int rows = " + daoClassVarName + ".updateByPrimaryKey(entity);\n"+
+					"		if (rows < 0) {\n"+
 					"			resultData.setCode(400);\n"+
-					"			resultData.setMsg(UserOperatedState.INNER_ERROR);\n"+
+					"			resultData.setMsg(UserOperatedState.UPDATE_FAILURE);\n"+
+					"		} else {\n"+
+					"			resultData.setMsg(UserOperatedState.UPDATE_SUCCESS);\n"+
 					"		}\n"+
+					"\n"+
 					"		return resultData;\n"+
 					"	}\n"+
 					"\n	/**单个实体选择性字段更新*/\n"+
 					"	@Override\n"+
 					"	public ResultData<Void> updateOneSelective(" + entityClassName + " entity) {\n"+
 					"		ResultData<Void> resultData = new ResultData<>();\n"+
-					"		try {\n"+
-					"			int rows = " + daoClassVarName + ".updateByPrimaryKeySelective(entity);\n"+
-					"			if (rows < 0) {\n"+
-					"				resultData.setCode(400);\n"+
-					"				resultData.setMsg(UserOperatedState.UPDATE_FAILURE);\n"+
-					"			} else {\n"+
-					"				resultData.setMsg(UserOperatedState.UPDATE_SUCCESS);\n"+
-					"			}\n"+
-					"		} catch (RuntimeException e) {\n"+
+					"\n"+
+					"		int rows = " + daoClassVarName + ".updateByPrimaryKeySelective(entity);\n"+
+					"		if (rows < 0) {\n"+
 					"			resultData.setCode(400);\n"+
-					"			resultData.setMsg(UserOperatedState.INNER_ERROR);\n"+
+					"			resultData.setMsg(UserOperatedState.UPDATE_FAILURE);\n"+
+					"		} else {\n"+
+					"			resultData.setMsg(UserOperatedState.UPDATE_SUCCESS);\n"+
 					"		}\n"+
+					"\n"+
 					"		return resultData;\n"+
 					"	}\n"+
 					"\n	/**根据实体ID查询单个实体*/\n"+
 					"	@Override\n"+
 					"	public ResultData<" + entityClassName + "> selectOne(" + classIdPropertyType + " " + entityIdName + ") {\n"+
 					"		ResultData<" + entityClassName + "> resultData = new ResultData<>();\n"+
-					"		try {\n"+
-					"			" + entityClassName + " " + entityClassVarName + " = " + daoClassVarName + ".selectByPrimaryKey(" + entityIdName + ");\n"+
-					"			if (" + entityClassVarName + " == null) {\n"+
-					"				resultData.setMsg(UserOperatedState.NO_DATA);\n"+
-					"			} else {\n"+
-					"				resultData.setMsg(UserOperatedState.SELECT_SUCCESS);\n"+
-					"				resultData.setData(" + entityClassVarName + ");\n"+
-					"			}\n"+
-					"		} catch (RuntimeException e) {\n"+
-					"			resultData.setCode(400);\n"+
-					"			resultData.setMsg(UserOperatedState.INNER_ERROR);\n"+
+					"\n"+
+					"		" + entityClassName + " " + entityClassVarName + " = " + daoClassVarName + ".selectByPrimaryKey(" + entityIdName + ");\n"+
+					"		if (" + entityClassVarName + " == null) {\n"+
+					"			resultData.setMsg(UserOperatedState.NO_DATA);\n"+
+					"		} else {\n"+
+					"			resultData.setMsg(UserOperatedState.SELECT_SUCCESS);\n"+
+					"			resultData.setData(" + entityClassVarName + ");\n"+
 					"		}\n"+
 					"\n"+
 					"		return resultData;\n"+
@@ -488,27 +469,22 @@ public class CalssGeneratorForMybatis {
 					"	@Override\n"+
 					"	public ResultData<List<" + entityClassName + ">> selectList(" + entityClassName + " entity, Page page) {\n"+
 					"		ResultData<List<" + entityClassName + ">> resultData = new ResultData<>();\n"+
-					"		try {\n"+
-					"			List<" + entityClassName + "> " + entityClassVarName + "s = new ArrayList<>();\n"+
-					"			int count = " + daoClassVarName + ".countByEntity(entity);\n"+
-					"			if (count > 0) {// 总记录大于则有数据，可以进一步分页查询\n"+
-					"				page.setTotalRecord(count);\n"+
-					"				" + entityClassVarName + "s = " + daoClassVarName + ".selectByEntityAndPage(entity, page);\n"+
 					"\n"+
-					"				if (" + entityClassVarName + "s.size() > 0) {\n"+
-					"					resultData.setMsg(UserOperatedState.SELECT_SUCCESS);\n"+
-					"				} else {\n"+
-					"					resultData.setMsg(UserOperatedState.NO_DATA);\n"+
-					"				}\n"+
-					"				\n"+
-					"				resultData.setData(" + entityClassVarName + "s, page);\n"+
+					"		List<" + entityClassName + "> " + entityClassVarName + "s = new ArrayList<>();\n"+
+					"		int count = " + daoClassVarName + ".countByEntity(entity);\n"+
+					"		if (count > 0) {// 总记录大于则有数据，可以进一步分页查询\n"+
+					"			page.setTotalRecord(count);\n"+
+					"			" + entityClassVarName + "s = " + daoClassVarName + ".selectByEntityAndPage(entity, page);\n"+
+					"\n"+
+					"			if (" + entityClassVarName + "s.size() > 0) {\n"+
+					"				resultData.setMsg(UserOperatedState.SELECT_SUCCESS);\n"+
 					"			} else {\n"+
 					"				resultData.setMsg(UserOperatedState.NO_DATA);\n"+
 					"			}\n"+
-					"\n"+
-					"		} catch (RuntimeException e) {\n"+
-					"			resultData.setCode(400);\n"+
-					"			resultData.setMsg(UserOperatedState.INNER_ERROR);\n"+
+					"			\n"+
+					"			resultData.setData(" + entityClassVarName + "s, page);\n"+
+					"		} else {\n"+
+					"			resultData.setMsg(UserOperatedState.NO_DATA);\n"+
 					"		}\n"+
 					"\n"+
 					"		return resultData;\n"+
@@ -517,19 +493,14 @@ public class CalssGeneratorForMybatis {
 					"	@Override\n"+
 					"	public ResultData<List<" + entityClassName + ">> selectAll() {\n"+
 					"		ResultData<List<" + entityClassName + ">> resultData = new ResultData<>();\n"+
-					"		try {\n"+
-					"			List<" + entityClassName + "> " + entityClassVarName + "s = " + daoClassVarName + ".selectByEntityAndPage(null, null);\n"+
 					"\n"+
-					"			if (" + entityClassVarName + "s.size() > 0) {\n"+
-					"				resultData.setMsg(UserOperatedState.SELECT_SUCCESS);\n"+
-					"				resultData.setData(" + entityClassVarName + "s);\n"+
-					"			} else {\n"+
-					"				resultData.setMsg(UserOperatedState.NO_DATA);\n"+
-					"			}\n"+
+					"		List<" + entityClassName + "> " + entityClassVarName + "s = " + daoClassVarName + ".selectByEntityAndPage(null, null);\n"+
 					"\n"+
-					"		} catch (RuntimeException e) {\n"+
-					"			resultData.setCode(400);\n"+
-					"			resultData.setMsg(UserOperatedState.INNER_ERROR);\n"+
+					"		if (" + entityClassVarName + "s.size() > 0) {\n"+
+					"			resultData.setMsg(UserOperatedState.SELECT_SUCCESS);\n"+
+					"			resultData.setData(" + entityClassVarName + "s);\n"+
+					"		} else {\n"+
+					"			resultData.setMsg(UserOperatedState.NO_DATA);\n"+
 					"		}\n"+
 					"\n"+
 					"		return resultData;\n"+
