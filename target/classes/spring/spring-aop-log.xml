@@ -12,7 +12,7 @@
 	<aop:aspectj-autoproxy proxy-target-class="true" />
 
 	<!--将日志类注入到bean中。 -->
-	<!-- <bean id="logAspect" class="com.sziit.log.LogAspect"></bean>
+	<!-- <bean id="logAspect" class="com.yzz.log.CrmCustomerLogAspect"></bean>
 
 	<aop:config>
 		调用日志类
@@ -26,6 +26,6 @@
 			<aop:after pointcut-ref="log" method="after" />
 			环绕触发 <aop:around pointcut-ref="log" method="around"/>
 		</aop:aspect>
-	</aop:config> -->
+	</aop:config>  -->
 
 </beans>
