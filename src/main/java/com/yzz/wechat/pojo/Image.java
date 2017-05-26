@@ -1,6 +1,7 @@
 package com.yzz.wechat.pojo;
 
 public class Image {
+	
 	private String MediaId;
 
 	public String getMediaId() {
@@ -10,4 +11,5 @@ public class Image {
 	public void setMediaId(String mediaId) {
 		MediaId = mediaId;
 	}
+
 }

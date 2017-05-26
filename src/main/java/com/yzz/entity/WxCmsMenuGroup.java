@@ -5,14 +5,14 @@ package com.yzz.entity;
 * @description: wx_cms_menu_group表的实体类WxCmsMenuGroup 
 * 
 * @author 杨志钊 
-* @date 2017-04-21 10:07:02 
+* @date 2017-05-03 15:54:51 
 */ 
 
 public class WxCmsMenuGroup {
 
 	private Integer wxCmsMenuGroupId;//菜单组ID
 
-	private String name;//菜单组名称
+	private String butName;//菜单组名称
 
 	private String wxCmsPublicAccountId;//所属公众号ID
 
@@ -26,12 +26,12 @@ public class WxCmsMenuGroup {
  		this.wxCmsMenuGroupId = wxCmsMenuGroupId; 
 	} 
 
-	public String getName() { 
-		return name; 
+	public String getButName() { 
+		return butName; 
 	} 
 
-	public void setName(String name) { 
- 		this.name = name == null ? null : name.trim(); 
+	public void setButName(String butName) { 
+ 		this.butName = butName == null ? null : butName.trim(); 
 	} 
 
 	public String getWxCmsPublicAccountId() { 

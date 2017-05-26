@@ -5,7 +5,7 @@ package com.yzz.entity;
 * @description: wx_cms_menu表的实体类WxCmsMenu 
 * 
 * @author 杨志钊 
-* @date 2017-04-21 10:07:02 
+* @date 2017-05-03 17:08:54 
 */ 
 
 public class WxCmsMenu {
@@ -16,15 +16,15 @@ public class WxCmsMenu {
 
 	private String mediaId;//media_id类型和view_limited类型必须，调用新增永久素材接口返回的合法media_id
 
-	private String type;//菜单的响应动作类型【click：点击推事件，view：跳转URL，scancode_push：扫码推事件，scancode_waitmsg：扫码推事件且弹出“消息接收中”提示框，pic_sysphoto：弹出系统拍照发图，pic_photo_or_album：弹出拍照或者相册发图，pic_weixin：弹出微信相册发图器，location_select：弹出地理位置选择器，media_id：下发消息（除文本消息），view_limited：跳转图文消息URL】
+	private String butType;//菜单的响应动作类型【click：点击推事件，view：跳转URL，scancode_push：扫码推事件，scancode_waitmsg：扫码推事件且弹出“消息接收中”提示框，pic_sysphoto：弹出系统拍照发图，pic_photo_or_album：弹出拍照或者相册发图，pic_weixin：弹出微信相册发图器，location_select：弹出地理位置选择器，media_id：下发消息（除文本消息），view_limited：跳转图文消息URL】
 
-	private String name;//菜单标题，不超过16个字节，子菜单不超过40个字节
+	private String butName;//菜单标题，不超过16个字节，子菜单不超过40个字节
 
-	private String key;//click等点击类型必须，菜单KEY值，用于消息接口推送，不超过128字节
+	private String butKey;//click等点击类型必须，菜单KEY值，用于消息接口推送，不超过128字节
 
-	private String url;//view类型必须，网页链接，用户点击菜单可打开链接，不超过1024字节
+	private String butUrl;//view类型必须，网页链接，用户点击菜单可打开链接，不超过1024字节
 
-	private Integer sort;//菜单排序
+	private Integer butSort;//菜单排序
 
 	private String parentId;//菜单级别，一级菜单值为0，二级菜单值为其父级菜单的ID
 
@@ -54,44 +54,44 @@ public class WxCmsMenu {
  		this.mediaId = mediaId == null ? null : mediaId.trim(); 
 	} 
 
-	public String getType() { 
-		return type; 
+	public String getButType() { 
+		return butType; 
 	} 
 
-	public void setType(String type) { 
- 		this.type = type == null ? null : type.trim(); 
+	public void setButType(String butType) { 
+ 		this.butType = butType == null ? null : butType.trim(); 
 	} 
 
-	public String getName() { 
-		return name; 
+	public String getButName() { 
+		return butName; 
 	} 
 
-	public void setName(String name) { 
- 		this.name = name == null ? null : name.trim(); 
+	public void setButName(String butName) { 
+ 		this.butName = butName == null ? null : butName.trim(); 
 	} 
 
-	public String getKey() { 
-		return key; 
+	public String getButKey() { 
+		return butKey; 
 	} 
 
-	public void setKey(String key) { 
- 		this.key = key == null ? null : key.trim(); 
+	public void setButKey(String butKey) { 
+ 		this.butKey = butKey == null ? null : butKey.trim(); 
 	} 
 
-	public String getUrl() { 
-		return url; 
+	public String getButUrl() { 
+		return butUrl; 
 	} 
 
-	public void setUrl(String url) { 
- 		this.url = url == null ? null : url.trim(); 
+	public void setButUrl(String butUrl) { 
+ 		this.butUrl = butUrl == null ? null : butUrl.trim(); 
 	} 
 
-	public Integer getSort() { 
-		return sort; 
+	public Integer getButSort() { 
+		return butSort; 
 	} 
 
-	public void setSort(Integer sort) { 
- 		this.sort = sort; 
+	public void setButSort(Integer butSort) { 
+ 		this.butSort = butSort; 
 	} 
 
 	public String getParentId() { 

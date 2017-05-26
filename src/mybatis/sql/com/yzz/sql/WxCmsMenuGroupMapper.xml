@@ -3,18 +3,18 @@
 <mapper namespace="com.yzz.dao.WxCmsMenuGroupDao">
 <resultMap id="BaseResultMap" type="com.yzz.entity.WxCmsMenuGroup">
 <id column="wx_cms_menu_group_id" property="wxCmsMenuGroupId" jdbcType="INTEGER" />
-<result column="name" property="name" jdbcType="VARCHAR" />
+<result column="but_name" property="butName" jdbcType="VARCHAR" />
 <result column="wx_cms_public_account_id" property="wxCmsPublicAccountId" jdbcType="VARCHAR" />
 <result column="is_enable" property="isEnable" jdbcType="INTEGER" />
 </resultMap>
 <sql id="Base_Column_List">
-wx_cms_menu_group_id,name,wx_cms_public_account_id,is_enable
+wx_cms_menu_group_id,but_name,wx_cms_public_account_id,is_enable
 </sql>
 <insert id="insert" parameterType="com.yzz.entity.WxCmsMenuGroup">
 insert into wx_cms_menu_group 
-( wx_cms_menu_group_id,name,wx_cms_public_account_id,is_enable)
+( wx_cms_menu_group_id,but_name,wx_cms_public_account_id,is_enable)
 values (#{wxCmsMenuGroupId,jdbcType=INTEGER},
-#{name,jdbcType=VARCHAR},
+#{butName,jdbcType=VARCHAR},
 #{wxCmsPublicAccountId,jdbcType=VARCHAR},
 #{isEnable,jdbcType=INTEGER}) 
 </insert>
@@ -36,7 +36,7 @@ where wx_cms_menu_group_id = #{wxCmsMenuGroupId,jdbcType=INTEGER}
 
 <update id="updateByPrimaryKey" parameterType="com.yzz.entity.WxCmsMenuGroup">
 update wx_cms_menu_group set 
-name = #{name,jdbcType=VARCHAR},
+but_name = #{butName,jdbcType=VARCHAR},
 wx_cms_public_account_id = #{wxCmsPublicAccountId,jdbcType=VARCHAR},
 is_enable = #{isEnable,jdbcType=INTEGER}
  
@@ -45,8 +45,8 @@ where wx_cms_menu_group_id = #{wxCmsMenuGroupId,jdbcType=INTEGER}
 
 <update id="updateByPrimaryKeySelective" parameterType="com.yzz.entity.WxCmsMenuGroup">
 update wx_cms_menu_group <set> 
-<if test="name != null">
- name = #{name,jdbcType=VARCHAR},
+<if test="butName != null">
+ but_name = #{butName,jdbcType=VARCHAR},
 </if>
 <if test="wxCmsPublicAccountId != null">
  wx_cms_public_account_id = #{wxCmsPublicAccountId,jdbcType=VARCHAR},
@@ -75,8 +75,8 @@ from wx_cms_menu_group
  <if test="entity.wxCmsMenuGroupId != null">
 and wx_cms_menu_group_id = #{entity.wxCmsMenuGroupId,jdbcType=INTEGER}
 </if>
-<if test="entity.name != null">
-and name = #{entity.name,jdbcType=VARCHAR}
+<if test="entity.butName != null">
+and but_name = #{entity.butName,jdbcType=VARCHAR}
 </if>
 <if test="entity.wxCmsPublicAccountId != null">
 and wx_cms_public_account_id = #{entity.wxCmsPublicAccountId,jdbcType=VARCHAR}
@@ -88,7 +88,7 @@ and is_enable = #{entity.isEnable,jdbcType=INTEGER}
 </if>
 <if test="page != null">
 <if test="page.orderField != null">
-order by #{page.orderField,jdbcType=VARCHAR} #{page.sort,jdbcType=VARCHAR}
+order by ${page.orderField} ${page.sort}
 </if>
 <if test="page.start != null">
 limit #{page.start,jdbcType=INTEGER}, #{page.pageSize,jdbcType=INTEGER}
@@ -103,8 +103,8 @@ select count(*) from wx_cms_menu_group
  <if test="entity.wxCmsMenuGroupId != null">
 and wx_cms_menu_group_id = #{entity.wxCmsMenuGroupId,jdbcType=INTEGER}
 </if>
-<if test="entity.name != null">
-and name = #{entity.name,jdbcType=VARCHAR}
+<if test="entity.butName != null">
+and but_name = #{entity.butName,jdbcType=VARCHAR}
 </if>
 <if test="entity.wxCmsPublicAccountId != null">
 and wx_cms_public_account_id = #{entity.wxCmsPublicAccountId,jdbcType=VARCHAR}

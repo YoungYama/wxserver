@@ -60,8 +60,10 @@ public class SysUserCtrl {
 	public ResultData<Void> logout(HttpSession session) {
 		ResultData<Void> resultData = new ResultData<>();
 		try {
-			session.removeAttribute(ConstantUtil.LOGINING_SYS_USER);
-			session.invalidate();
+			if (session != null) {
+				session.removeAttribute(ConstantUtil.LOGINING_SYS_USER);
+				session.invalidate();
+			}
 			resultData.setMsg(UserOperatedState.LOGOUT_SUCCESS);
 		} catch (Exception e) {
 			resultData.setCode(400);

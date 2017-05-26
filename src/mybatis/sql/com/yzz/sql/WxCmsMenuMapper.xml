@@ -5,28 +5,28 @@
 <id column="wx_cms_menu_id" property="wxCmsMenuId" jdbcType="VARCHAR" />
 <result column="wx_cms_public_account_id" property="wxCmsPublicAccountId" jdbcType="VARCHAR" />
 <result column="media_id" property="mediaId" jdbcType="VARCHAR" />
-<result column="type" property="type" jdbcType="VARCHAR" />
-<result column="name" property="name" jdbcType="VARCHAR" />
-<result column="key" property="key" jdbcType="VARCHAR" />
-<result column="url" property="url" jdbcType="LONGVARCHAR" />
-<result column="sort" property="sort" jdbcType="INTEGER" />
+<result column="but_type" property="butType" jdbcType="VARCHAR" />
+<result column="but_name" property="butName" jdbcType="VARCHAR" />
+<result column="but_key" property="butKey" jdbcType="VARCHAR" />
+<result column="but_url" property="butUrl" jdbcType="LONGVARCHAR" />
+<result column="but_sort" property="butSort" jdbcType="INTEGER" />
 <result column="parent_id" property="parentId" jdbcType="VARCHAR" />
 <result column="wx_cms_menu_group_id" property="wxCmsMenuGroupId" jdbcType="INTEGER" />
 </resultMap>
 <sql id="Base_Column_List">
-wx_cms_menu_id,wx_cms_public_account_id,media_id,type,name,key,url,sort,parent_id,wx_cms_menu_group_id
+wx_cms_menu_id,wx_cms_public_account_id,media_id,but_type,but_name,but_key,but_url,but_sort,parent_id,wx_cms_menu_group_id
 </sql>
 <insert id="insert" parameterType="com.yzz.entity.WxCmsMenu">
 insert into wx_cms_menu 
-( wx_cms_menu_id,wx_cms_public_account_id,media_id,type,name,key,url,sort,parent_id,wx_cms_menu_group_id)
+( wx_cms_menu_id,wx_cms_public_account_id,media_id,but_type,but_name,but_key,but_url,but_sort,parent_id,wx_cms_menu_group_id)
 values (#{wxCmsMenuId,jdbcType=VARCHAR},
 #{wxCmsPublicAccountId,jdbcType=VARCHAR},
 #{mediaId,jdbcType=VARCHAR},
-#{type,jdbcType=VARCHAR},
-#{name,jdbcType=VARCHAR},
-#{key,jdbcType=VARCHAR},
-#{url,jdbcType=LONGVARCHAR},
-#{sort,jdbcType=INTEGER},
+#{butType,jdbcType=VARCHAR},
+#{butName,jdbcType=VARCHAR},
+#{butKey,jdbcType=VARCHAR},
+#{butUrl,jdbcType=LONGVARCHAR},
+#{butSort,jdbcType=INTEGER},
 #{parentId,jdbcType=VARCHAR},
 #{wxCmsMenuGroupId,jdbcType=INTEGER}) 
 </insert>
@@ -50,11 +50,11 @@ where wx_cms_menu_id = #{wxCmsMenuId,jdbcType=VARCHAR}
 update wx_cms_menu set 
 wx_cms_public_account_id = #{wxCmsPublicAccountId,jdbcType=VARCHAR},
 media_id = #{mediaId,jdbcType=VARCHAR},
-type = #{type,jdbcType=VARCHAR},
-name = #{name,jdbcType=VARCHAR},
-key = #{key,jdbcType=VARCHAR},
-url = #{url,jdbcType=LONGVARCHAR},
-sort = #{sort,jdbcType=INTEGER},
+but_type = #{butType,jdbcType=VARCHAR},
+but_name = #{butName,jdbcType=VARCHAR},
+but_key = #{butKey,jdbcType=VARCHAR},
+but_url = #{butUrl,jdbcType=LONGVARCHAR},
+but_sort = #{butSort,jdbcType=INTEGER},
 parent_id = #{parentId,jdbcType=VARCHAR},
 wx_cms_menu_group_id = #{wxCmsMenuGroupId,jdbcType=INTEGER}
  
@@ -69,20 +69,20 @@ update wx_cms_menu <set>
 <if test="mediaId != null">
  media_id = #{mediaId,jdbcType=VARCHAR},
 </if>
-<if test="type != null">
- type = #{type,jdbcType=VARCHAR},
+<if test="butType != null">
+ but_type = #{butType,jdbcType=VARCHAR},
 </if>
-<if test="name != null">
- name = #{name,jdbcType=VARCHAR},
+<if test="butName != null">
+ but_name = #{butName,jdbcType=VARCHAR},
 </if>
-<if test="key != null">
- key = #{key,jdbcType=VARCHAR},
+<if test="butKey != null">
+ but_key = #{butKey,jdbcType=VARCHAR},
 </if>
-<if test="url != null">
- url = #{url,jdbcType=LONGVARCHAR},
+<if test="butUrl != null">
+ but_url = #{butUrl,jdbcType=LONGVARCHAR},
 </if>
-<if test="sort != null">
- sort = #{sort,jdbcType=INTEGER},
+<if test="butSort != null">
+ but_sort = #{butSort,jdbcType=INTEGER},
 </if>
 <if test="parentId != null">
  parent_id = #{parentId,jdbcType=VARCHAR},
@@ -117,20 +117,20 @@ and wx_cms_public_account_id = #{entity.wxCmsPublicAccountId,jdbcType=VARCHAR}
 <if test="entity.mediaId != null">
 and media_id = #{entity.mediaId,jdbcType=VARCHAR}
 </if>
-<if test="entity.type != null">
-and type = #{entity.type,jdbcType=VARCHAR}
+<if test="entity.butType != null">
+and but_type = #{entity.butType,jdbcType=VARCHAR}
 </if>
-<if test="entity.name != null">
-and name = #{entity.name,jdbcType=VARCHAR}
+<if test="entity.butName != null">
+and but_name = #{entity.butName,jdbcType=VARCHAR}
 </if>
-<if test="entity.key != null">
-and key = #{entity.key,jdbcType=VARCHAR}
+<if test="entity.butKey != null">
+and but_key = #{entity.butKey,jdbcType=VARCHAR}
 </if>
-<if test="entity.url != null">
-and url = #{entity.url,jdbcType=LONGVARCHAR}
+<if test="entity.butUrl != null">
+and but_url = #{entity.butUrl,jdbcType=LONGVARCHAR}
 </if>
-<if test="entity.sort != null">
-and sort = #{entity.sort,jdbcType=INTEGER}
+<if test="entity.butSort != null">
+and but_sort = #{entity.butSort,jdbcType=INTEGER}
 </if>
 <if test="entity.parentId != null">
 and parent_id = #{entity.parentId,jdbcType=VARCHAR}
@@ -142,7 +142,7 @@ and wx_cms_menu_group_id = #{entity.wxCmsMenuGroupId,jdbcType=INTEGER}
 </if>
 <if test="page != null">
 <if test="page.orderField != null">
-order by #{page.orderField,jdbcType=VARCHAR} #{page.sort,jdbcType=VARCHAR}
+order by ${page.orderField} ${page.sort}
 </if>
 <if test="page.start != null">
 limit #{page.start,jdbcType=INTEGER}, #{page.pageSize,jdbcType=INTEGER}
@@ -163,20 +163,20 @@ and wx_cms_public_account_id = #{entity.wxCmsPublicAccountId,jdbcType=VARCHAR}
 <if test="entity.mediaId != null">
 and media_id = #{entity.mediaId,jdbcType=VARCHAR}
 </if>
-<if test="entity.type != null">
-and type = #{entity.type,jdbcType=VARCHAR}
+<if test="entity.butType != null">
+and but_type = #{entity.butType,jdbcType=VARCHAR}
 </if>
-<if test="entity.name != null">
-and name = #{entity.name,jdbcType=VARCHAR}
+<if test="entity.butName != null">
+and but_name = #{entity.butName,jdbcType=VARCHAR}
 </if>
-<if test="entity.key != null">
-and key = #{entity.key,jdbcType=VARCHAR}
+<if test="entity.butKey != null">
+and but_key = #{entity.butKey,jdbcType=VARCHAR}
 </if>
-<if test="entity.url != null">
-and url = #{entity.url,jdbcType=LONGVARCHAR}
+<if test="entity.butUrl != null">
+and but_url = #{entity.butUrl,jdbcType=LONGVARCHAR}
 </if>
-<if test="entity.sort != null">
-and sort = #{entity.sort,jdbcType=INTEGER}
+<if test="entity.butSort != null">
+and but_sort = #{entity.butSort,jdbcType=INTEGER}
 </if>
 <if test="entity.parentId != null">
 and parent_id = #{entity.parentId,jdbcType=VARCHAR}

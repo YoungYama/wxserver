@@ -3,6 +3,7 @@ package com.yzz.ctrl;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.apache.log4j.Logger;
 import org.springframework.stereotype.Controller;
@@ -11,8 +12,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.alibaba.fastjson.JSONObject;
+import com.yzz.dto.ResultData;
+import com.yzz.entity.SysUser;
+import com.yzz.entity.WxCmsMenu;
+import com.yzz.entity.WxCmsPublicAccount;
 import com.yzz.service.WeChatService;
-import com.yzz.util.HandleMessageUtil;
+import com.yzz.util.ConstantUtil;
 import com.yzz.util.WeChatSignUtil;
 
 @Controller
@@ -41,7 +47,7 @@ public class WeChatApiCtrl {
 		try {
 
 			// 对公众号粉丝发出的不同类型的信息、事件请求进行处理，并返回相应的响应message【xml格式】
-			responsiveMsg = HandleMessageUtil.handleMessage(token, request, weChatService);// 响应信息
+			responsiveMsg = weChatService.handleMessage(token, request);// 响应信息
 		} catch (Exception e) {
 			logger.error("【POST请求】" + "TOKEN【" + token + "】请求处理出错：" + e.getMessage());
 		}
@@ -68,6 +74,16 @@ public class WeChatApiCtrl {
 		}
 		
 		return result;
+	}
+	
+	@RequestMapping(value = "/createMenu", method = RequestMethod.POST, produces = "text/html;charset=UTF-8")
+	@ResponseBody
+	public ResultData<JSONObject> createMenu(WxCmsMenu entity, HttpSession session){
+		SysUser sysUser = (SysUser) session.getAttribute(ConstantUtil.LOGINING_SYS_USER);
+		String wxCmsPublicAccountId = sysUser.getWxCmsPublicAccountId();
+		ResultData<JSONObject> resultData = weChatService.createMenu(entity, wxCmsPublicAccountId);
+		
+		return resultData;
 	}
 
 }

@@ -19,6 +19,12 @@ public class TimeUtil {
 
 		return sdf.format(new Date());
 	}
+	
+	// 时间戳long
+	public static long getCurrentTimeLong() {
+		
+		return new Date().getTime();
+	}
 
 	// 获取当前日期 毫秒
 	public static long getTimeInMillis() {

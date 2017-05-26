@@ -5,7 +5,7 @@ package com.yzz.entity;
 * @description: wx_cms_public_account表的实体类WxCmsPublicAccount 
 * 
 * @author 杨志钊 
-* @date 2017-04-17 18:20:30 
+* @date 2017-05-03 14:34:19 
 */ 
 
 public class WxCmsPublicAccount {
@@ -26,7 +26,7 @@ public class WxCmsPublicAccount {
 
 	private String accessToken;//access_token是公众号的全局唯一票据，公众号调用各接口时都需使用access_token。开发者需要进行妥善保存。access_token的存储至少要保留512个字符空间。access_token的有效期目前为2个小时，需定时刷新，重复获取将导致上次获取的access_token失效。
 
-	private String accessTokenLastModifyTime;//access_token最新更新时间
+	private Long accessTokenLastModifyTime;//access_token最新更新时间
 
 	public String getWxCmsPublicAccountId() { 
 		return wxCmsPublicAccountId; 
@@ -92,12 +92,12 @@ public class WxCmsPublicAccount {
  		this.accessToken = accessToken == null ? null : accessToken.trim(); 
 	} 
 
-	public String getAccessTokenLastModifyTime() { 
+	public Long getAccessTokenLastModifyTime() { 
 		return accessTokenLastModifyTime; 
 	} 
 
-	public void setAccessTokenLastModifyTime(String accessTokenLastModifyTime) { 
- 		this.accessTokenLastModifyTime = accessTokenLastModifyTime == null ? null : accessTokenLastModifyTime.trim(); 
+	public void setAccessTokenLastModifyTime(Long accessTokenLastModifyTime) { 
+ 		this.accessTokenLastModifyTime = accessTokenLastModifyTime; 
 	} 
 
  

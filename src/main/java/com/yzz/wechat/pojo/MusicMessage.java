@@ -10,4 +10,5 @@ public class MusicMessage extends BaseMessage {
 	public void setMusic(Music music) {
 		Music = music;
 	}
+
 }

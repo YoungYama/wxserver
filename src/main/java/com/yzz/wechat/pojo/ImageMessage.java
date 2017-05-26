@@ -10,4 +10,5 @@ public class ImageMessage extends BaseMessage {
 	public void setImage(Image image) {
 		Image = image;
 	}
+
 }

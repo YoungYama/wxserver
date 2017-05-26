@@ -70,7 +70,7 @@ and name = #{entity.name,jdbcType=VARCHAR}
 </if>
 <if test="page != null">
 <if test="page.orderField != null">
-order by #{page.orderField,jdbcType=VARCHAR} #{page.sort,jdbcType=VARCHAR}
+order by ${page.orderField} ${page.sort}
 </if>
 <if test="page.start != null">
 limit #{page.start,jdbcType=INTEGER}, #{page.pageSize,jdbcType=INTEGER}

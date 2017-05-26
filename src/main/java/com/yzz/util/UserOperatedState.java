@@ -23,4 +23,7 @@ public interface UserOperatedState {
 	
 	public static final String INNER_ERROR = "服务器内部错误";
 	
+	public static final String CREATE_MENU_SUCCESS = "菜单创建成功";
+	public static final String CREATE_MENU_ERROR = "数据库无菜单数据";
+	
 }

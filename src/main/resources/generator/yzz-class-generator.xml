@@ -36,6 +36,7 @@
 	<table tableName="wx_cms_public_account" />
 	<table tableName="sys_model" /> -->
 	
-	<!-- <table tableName="wx_cms_menu" /> -->
+	<table tableName="wx_cms_menu" />
+	<!-- <table tableName="wx_cms_menu_group" /> -->
 
 </generatorConfiguration>

@@ -2,7 +2,6 @@ package com.yzz.util;
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -15,14 +14,14 @@ import org.dom4j.DocumentException;
 import org.dom4j.Element;
 import org.dom4j.io.SAXReader;
 
-import com.yzz.service.WeChatService;
+import com.thoughtworks.xstream.XStream;
 import com.yzz.wechat.pojo.Image;
 import com.yzz.wechat.pojo.ImageMessage;
+import com.yzz.wechat.pojo.Music;
 import com.yzz.wechat.pojo.MusicMessage;
 import com.yzz.wechat.pojo.News;
 import com.yzz.wechat.pojo.NewsMessage;
 import com.yzz.wechat.pojo.TextMessage;
-import com.thoughtworks.xstream.XStream;
 
 public class HandleMessageUtil {
 
@@ -53,16 +52,8 @@ public class HandleMessageUtil {
 	 *            微信服务器发出的请求，即公众号粉丝发出的信息，xml格式
 	 * @throws Exception
 	 */
-	public static String handleMessage(String token, HttpServletRequest request, WeChatService weChatService)
-			throws Exception {
-		/*PublicAccount publicAccount = weChatService.getSinglePublicAccountByToken(token);
-		// 公众号的appid
-		String publicAccountid = publicAccount.getAppid();
-		if (publicAccountid.equals("")) {
-			logger.error("TOKEN【" + token + "】调用***handleMessage()方法***出错：publicAccountid为空");
-			return "error";
-		}*/
-		
+	public static String initMessage(String token, HttpServletRequest request) throws Exception {
+
 		// 获取微信服务器传来的xml消息并转为map
 		Map<String, String> map = xmlToMap(request);
 		String toUserName = map.get("ToUserName");// 开发者微信号
@@ -73,42 +64,39 @@ public class HandleMessageUtil {
 		String message = null;// 响应信息
 
 		// 判断事件类型并做出相应响应
-	switch (msgType) {
-		case MESSAGE_TEXT:
-			// message=handleTextMessageKeyword(fromUserName, toUserName,
-			// content, publicAccountid, weChatCMSService,publicAccount);
-//			message = "你发送的文本信息："+content;
-//			message = weChatService.getTextMsgAutoReplyOfSubscribe(publicAccountid).getReplyContent();
-			
-			message = initResponsedTextMessage(fromUserName, toUserName, content);
+		switch (msgType) {
+		case MESSAGE_TEXT:// 文本消息
+
+			message = initTextMessage(fromUserName, toUserName, content);
 
 			break;
-		case MESSAGE_IMAGE:
-			message = "你发送的图片信息";
-			message = initResponsedTextMessage(fromUserName, toUserName, message);
+		case MESSAGE_IMAGE:// 图片消息
+			String mediaId = map.get("MediaId");
+
+			message = initImageMessage(toUserName, fromUserName, mediaId);
 
 			break;
-		case MESSAGE_EVENT:
+		case MESSAGE_EVENT:// 事件消息
 			String eventType = map.get("Event");
 
 			if (MESSAGE_SUBSCRIBE.equals(eventType)) {
-//				message = weChatService.getTextMsgAutoReplyOfSubscribe(publicAccountid).getReplyContent();
+				message = fromUserName + "关注微信测试号啦";
 			} else if (MESSAGE_UNSUBSCRIBE.equals(eventType)) {
-				System.out.println(fromUserName + "取消关注微信测试号啦");
+				logger.info(fromUserName + "取消关注微信测试号啦");
 			} else if (MESSAGE_CLICK.equals(eventType)) {
 				String eventKey = map.get("EventKey");
-
-				if (eventKey.equals("34")) {
-					message = "触发click事件，对应键值：" + eventKey;
-				}
+				
+				message = "触发click事件，对应键值：" + eventKey;
+			} else {
+				message = "触发事件，对事件：" + eventType;
 			}
 
-			message = initResponsedTextMessage(fromUserName, toUserName, message);
+			message = initTextMessage(fromUserName, toUserName, message);
 
 			break;
 		default:
-			message = "暂不对该信息类型进行处理";
-			message = initResponsedTextMessage(fromUserName, toUserName, message);
+			message = "暂不对该类型的信息进行处理";
+			message = initTextMessage(fromUserName, toUserName, message);
 
 			break;
 		}
@@ -147,7 +135,7 @@ public class HandleMessageUtil {
 	// //通过关键字和公众号id查询要回复的文本信息
 	// String
 	// replyContent=weChatCMSService.getSingleReplyTextMsgByKeywordAndPublicAccountid(textMsg).getReplyContent();
-	// message=initResponsedTextMessage(fromUserName, toUserName, replyContent);
+	// message=initTextMessage(fromUserName, toUserName, replyContent);
 	//
 	// break;
 	//
@@ -170,13 +158,13 @@ public class HandleMessageUtil {
 	// newsList.add(news);
 	// }
 	//
-	// message=initResponsedNewsMessage(newsList, fromUserName, toUserName);
+	// message=initNewsMessage(newsList, fromUserName, toUserName);
 	//
 	// break;
 	//
 	// default:
 	// message="暂时不对该信息进行处理";
-	// message=initResponsedTextMessage(fromUserName, toUserName, message);
+	// message=initTextMessage(fromUserName, toUserName, message);
 	//
 	// break;
 	// }
@@ -185,10 +173,10 @@ public class HandleMessageUtil {
 	// System.out.println(getWeChatMsgTemplate(weChatCMSService, publicAccount,
 	// fromUserName));
 	// message="关键字："+content;
-	// message=initResponsedTextMessage(fromUserName, toUserName, message);
+	// message=initTextMessage(fromUserName, toUserName, message);
 	// }else {
 	// message="没有关键字："+content;//若没有匹配的关键字，默认回复
-	// message=initResponsedTextMessage(fromUserName, toUserName, message);
+	// message=initTextMessage(fromUserName, toUserName, message);
 	// }
 	//
 	// }
@@ -236,7 +224,7 @@ public class HandleMessageUtil {
 	 */
 	public static String textMessageToXml(TextMessage textMessage) {
 		XStream xStream = new XStream();
-		xStream.alias("xml", textMessage.getClass());
+		xStream.alias("xml", TextMessage.class);
 
 		return xStream.toXML(textMessage);
 	}
@@ -249,8 +237,8 @@ public class HandleMessageUtil {
 	 */
 	public static String newsMessageToXml(NewsMessage newsMessage) {
 		XStream xStream = new XStream();
-		xStream.alias("xml", newsMessage.getClass());
-		xStream.alias("item", new News().getClass());
+		xStream.alias("xml", NewsMessage.class);
+		xStream.alias("item", News.class);
 
 		return xStream.toXML(newsMessage);
 	}
@@ -263,7 +251,8 @@ public class HandleMessageUtil {
 	 */
 	public static String imageMessageToXml(ImageMessage imageMessage) {
 		XStream xStream = new XStream();
-		xStream.alias("xml", imageMessage.getClass());
+		xStream.alias("xml", ImageMessage.class);
+
 		return xStream.toXML(imageMessage);
 	}
 
@@ -275,63 +264,98 @@ public class HandleMessageUtil {
 	 */
 	public static String musicMessageToXml(MusicMessage musicMessage) {
 		XStream xStream = new XStream();
-		xStream.alias("xml", musicMessage.getClass());
+		xStream.alias("xml", MusicMessage.class);
+
 		return xStream.toXML(musicMessage);
 	}
 
 	/**
-	 * 对要回复的文本消息进行组装，xml格式
+	 * 组装文本消息
 	 * 
 	 * @param fromUserName
 	 * @param toUserName
 	 * @param content
 	 * @return
 	 */
-	public static String initResponsedTextMessage(String fromUserName, String toUserName, String content) {
+	public static String initTextMessage(String fromUserName, String toUserName, String content) {
 		TextMessage textMessage = new TextMessage();
 		textMessage.setToUserName(fromUserName);
 		textMessage.setFromUserName(toUserName);
-		textMessage.setCreateTime(new Date().getTime());
+		textMessage.setCreateTime(TimeUtil.getCurrentTimeLong());
 		textMessage.setMsgType(MESSAGE_TEXT);
 		textMessage.setContent(content);
 		return textMessageToXml(textMessage);
 	}
-
+	
 	/**
-	 * 对要回复的图片消息进行组装，xml格式
+	 * 组装图片消息
 	 * 
 	 * @param toUserName
 	 * @param fromUserName
+	 * @param mediaId
 	 * @return
 	 */
-	public static String initResponsedImageMessage(String toUserName, String fromUserName) {
+	public static String initImageMessage(String toUserName, String fromUserName, String mediaId) {
 		String message = null;
 		Image image = new Image();
-		image.setMediaId("NBAdOYjq_alzAarsmEYXCCtgmg7QDFbjLH4g0QYPYDT8OWoPiHq2B08CLv268O1s");
+		image.setMediaId(mediaId);
 		ImageMessage imageMessage = new ImageMessage();
 		imageMessage.setFromUserName(toUserName);
 		imageMessage.setToUserName(fromUserName);
 		imageMessage.setMsgType(MESSAGE_IMAGE);
-		imageMessage.setCreateTime(new Date().getTime());
+		imageMessage.setCreateTime(TimeUtil.getCurrentTimeLong());
 		imageMessage.setImage(image);
 		message = imageMessageToXml(imageMessage);
 		return message;
 	}
 
 	/**
-	 * 对要回复的图文消息进行组装，xml格式
+	 * 组装音乐消息
 	 * 
+	 * @param toUserName
+	 * @param fromUserName
+	 * @param mediaId
+	 * @param title
+	 * @param description
+	 * @param musicUrl
+	 * @param HQMusicUrl
+	 * @return
+	 */
+	public static String initMusicMessage(String toUserName, String fromUserName, String mediaId, String title,
+			String description, String musicUrl, String HQMusicUrl) {
+		String message = null;
+		Music music = new Music();
+		music.setThumbMediaId(mediaId);
+		music.setTitle(title);
+		music.setDescription(description);
+		music.setMusicUrl(musicUrl);
+		music.setHQMusicUrl(HQMusicUrl);
+
+		MusicMessage musicMessage = new MusicMessage();
+		musicMessage.setFromUserName(toUserName);
+		musicMessage.setToUserName(fromUserName);
+		musicMessage.setMsgType(MESSAGE_MUSIC);
+		musicMessage.setCreateTime(TimeUtil.getCurrentTimeLong());
+		musicMessage.setMusic(music);
+		message = musicMessageToXml(musicMessage);
+		return message;
+	}
+
+	/**
+	 * 组装图文消息
+	 * 
+	 * @param newsList
 	 * @param fromUserName
 	 * @param toUserName
 	 * @return
 	 */
-	public static String initResponsedNewsMessage(List<News> newsList, String fromUserName, String toUserName) {
+	public static String initNewsMessage(List<News> newsList, String fromUserName, String toUserName) {
 		String message = null;
 		NewsMessage newsMessage = new NewsMessage();
 
 		newsMessage.setToUserName(fromUserName);
 		newsMessage.setFromUserName(toUserName);
-		newsMessage.setCreateTime(new Date().getTime());
+		newsMessage.setCreateTime(TimeUtil.getCurrentTimeLong());
 		newsMessage.setMsgType(MESSAGE_NEWS);
 		newsMessage.setArticleCount(newsList.size());
 		newsMessage.setArticles(newsList);

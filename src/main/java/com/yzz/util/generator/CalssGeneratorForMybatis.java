@@ -24,15 +24,15 @@ public class CalssGeneratorForMybatis {
 
 		CalssGeneratorForMybatis.setTableAndClassDatas(map);
 		
-//		CalssGeneratorForMybatis.generateEntityClass();
+		CalssGeneratorForMybatis.generateEntityClass();
 //		
 //		CalssGeneratorForMybatis.generateDaoClass();
 //		
-//		CalssGeneratorForMybatis.generateMapperXml();
+		CalssGeneratorForMybatis.generateMapperXml();
 //		
 //		CalssGeneratorForMybatis.generateServiceClass();
 		
-		CalssGeneratorForMybatis.generateServiceImplClass();
+//		CalssGeneratorForMybatis.generateServiceImplClass();
 		
 //		CalssGeneratorForMybatis.generateCtrlClass();
 	}
@@ -276,7 +276,7 @@ public class CalssGeneratorForMybatis {
 			mapperXmlTemplate += "<select id=\"selectByPrimaryKey\" resultMap=\"BaseResultMap\" parameterType=\"" + classIdTypeFullName + "\">\nselect\n<include refid=\"Base_Column_List\" />\nfrom " + tableName + " \nwhere " + tableIdName + " = #{" + entityIdName + ",jdbcType=" + tableIdType + "}\n</select>\n\n";
 			
 			mapperXmlTemplate += "<select id=\"selectByEntityAndPage\" resultMap=\"BaseResultMap\" >\nselect\n<include refid=\"Base_Column_List\" />\nfrom " + tableName + " \n<if test=\"entity != null\">\n<where>\n " + selectWheres + "</where>\n</if>\n";
-			mapperXmlTemplate += "<if test=\"page != null\">\n<if test=\"page.orderField != null\">\norder by #{page.orderField,jdbcType=VARCHAR} #{page.sort,jdbcType=VARCHAR}\n</if>\n<if test=\"page.start != null\">\nlimit #{page.start,jdbcType=INTEGER}, #{page.pageSize,jdbcType=INTEGER}\n</if>\n</if>\n</select>\n\n";
+			mapperXmlTemplate += "<if test=\"page != null\">\n<if test=\"page.orderField != null\">\norder by ${page.orderField} ${page.sort}\n</if>\n<if test=\"page.start != null\">\nlimit #{page.start,jdbcType=INTEGER}, #{page.pageSize,jdbcType=INTEGER}\n</if>\n</if>\n</select>\n\n";
 				
 			mapperXmlTemplate += "<select id=\"countByEntity\" resultType=\"java.lang.Integer\" >\nselect count(*) from " + tableName + " \n<if test=\"entity != null\">\n<where>\n " + selectWheres + "</where>\n</if>\n</select>\n\n";
 			
